@@ -1,0 +1,38 @@
+<p>
+  <strong>Name:</strong>
+  <%= @recipe.name %>
+</p>
+
+<ul>
+<% @recipe.ingredients.each do |ingredient| %>
+  <li><%= ingredient.name %></li>
+<% end %>
+</ul>
+
+<p>
+  <strong>Direction:</strong>
+  <%= @recipe.directions %>
+</p>
+
+<p>
+  <strong>Prep time:</strong>
+  <%= @recipe.prep_time %>
+</p>
+
+<p>
+  <strong>Cook time:</strong>
+  <%= @recipe.cook_time %>
+</p>
+
+<p>
+  <strong>Source url:</strong>
+  <%= @recipe.source_url %>
+</p>
+
+<p>
+  <strong>Serving:</strong>
+  <%= @recipe.serving %>
+</p>
+
+<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+<%= link_to 'Back', recipes_path %>

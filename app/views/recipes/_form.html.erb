@@ -1,0 +1,63 @@
+<%= form_for(@recipe) do |f| %>
+  <% if @recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe.errors.count, "error") %> prohibited this recipe from being saved:</h2>
+
+      <ul>
+      <% @recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name, :required => true%>
+  </div>
+
+<div class="ingredient">
+    <strong>Ingredients</strong>
+    <div id="ingredient_list">
+    <%= f.fields_for :ingredients do |ingredient_form|%>
+      <%= ingredient_form.text_field :name %>
+    <% end %>
+    </div>
+     <button type="button" id="add_ingredient_button">Add ingredient</button> 
+  </div>
+  <div class="field">
+    <%= f.label :directions %><br>
+    <%= f.text_area :directions, :required => true%>
+  </div>
+  <div class="field">
+    <%= f.label :prep_time %><br>
+    <%= f.number_field :prep_time %>
+  </div>
+  <div class="field">
+    <%= f.label :cook_time %><br>
+    <%= f.number_field :cook_time %>
+  </div>
+  <div class="field">
+    <%= f.label :source_url %><br>
+    <%= f.text_field :source_url %>
+  </div>
+  <div class="field">
+    <%= f.label :serving %><br>
+    <%= f.number_field :serving %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+$('#add_ingredient_button').click( function(e) {
+    e.preventDefault();
+    var ingredient_length = $('#ingredient_list input').length;
+    for (var i = ingredient_length; i < ingredient_length + 5; i++) {
+      var input = '<input type="text" name="recipe[ingredients_attributes][{{index}}][name]" id="recipe_ingredients_attributes_{{index}}_name">';
+      var index_input = input.replace(/{{index}}/g, i)
+      $('#ingredient_list').append(index_input);
+    }
+});
+</script>

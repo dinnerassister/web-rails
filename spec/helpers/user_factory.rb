@@ -13,6 +13,6 @@ class UserFactory
   def self.user_fields
     { name: "Homer",
       password: "BeerAndDonuts",
-      email: "homer@evergreen.com"}    
+      email: "homer#{DateTime.now}@evergreen.com"}    
   end
 end
