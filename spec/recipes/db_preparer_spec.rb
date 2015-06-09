@@ -26,5 +26,4 @@ RSpec.describe DbPreparer do
 
     expect(params["ingredients_attributes"]).to eq clean_ingredients
   end
-
 end
