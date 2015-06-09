@@ -38,5 +38,5 @@ RSpec.configure do |config|
   end
 
   OmniAuth.config.test_mode = true
-  require 'helper/user_factory'
+  require 'helpers/user_factory'
 end
