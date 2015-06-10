@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
 
   def index
     @recipes = Recipe.all
@@ -10,7 +11,8 @@ class RecipesController < ApplicationController
 
   def new
     @recipe = Recipe.new
-    @recipe.ingredients = Array.new(5, Ingredient.new)
+    @recipe.ingredients = Array.new(10, Ingredient.new)
+    @recipe.photos = Array.new(3, RecipePhoto.new)
   end
 
   def edit
@@ -56,6 +58,17 @@ class RecipesController < ApplicationController
     end
 
     def recipe_params
-      params.require(:recipe).permit(:name, :directions, :prep_time, :cook_time, :source_url, :serving, ingredients_attributes: [:name])
+      cleaned_params = params.require(:recipe).permit(:name, :directions, :prep_time, :cook_time, 
+                                                      :source_url, :serving, 
+                                                       photos_attributes: [ :photo, :photo_content_type, :photo_file_name, :tempfile, 
+                                                                            :photo_file_size, :photo_updated_at, :_destroy],
+                                                       ingredients_attributes: [:name, :_destroy])
+      prep_for_db cleaned_params
+    end
+
+    def prep_for_db(cleaned_params)
+      cleaned_params[:user_id] = current_user.id
+      cleaned_params[:ingredients_attributes].delete_if {|k, v| v[:name].empty? }
+      cleaned_params
     end
 end

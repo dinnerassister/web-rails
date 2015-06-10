@@ -1,27 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe RecipesController, type: :controller do
-
-  let(:valid_attributes) {
-    {"name"=>"tofu", 
-      "ingredients_attributes"=>{"0"=>{"name"=>"soy"}, "1"=>{"name"=>"milk"}}, 
-      "directions"=>"buy from store \n cook at home", 
-      "prep_time"=>"3", 
-      "cook_time"=>"10", 
-      "source_url"=>"http://food.com", 
-      "serving"=>"3"}
-  }
-
-  let(:invalid_attributes) {
-    {name: ""}
-  }
-
-  let(:valid_session) { {} }
+  include Devise::TestHelpers
 
   describe "GET #index" do
     it "assigns all recipes as @recipes" do
       recipe = Recipe.create! valid_attributes
-      get :index, {}, valid_session
+      get :index
       expect(assigns(:recipes)).to eq([recipe])
     end
   end
@@ -38,6 +23,8 @@ RSpec.describe RecipesController, type: :controller do
     it "assigns a new recipe as @recipe" do
       get :new, {}, valid_session
       expect(assigns(:recipe)).to be_a_new(Recipe)
+      expect(assigns(:recipe).photos.size).to eq 3
+      expect(assigns(:recipe).ingredients.size).to eq 10
     end
   end
 
@@ -80,12 +67,36 @@ RSpec.describe RecipesController, type: :controller do
         expect(response).to render_template("new")
       end
     end
+
+    context "preparing data for database" do
+      it "sets the user id" do
+        post :create, {:recipe => valid_attributes}, valid_session
+        expect(assigns(:recipe).user_id).to eq assigns(:current_user).id
+      end
+
+      it "does not save empty ingredients" do
+        ingredients = {"0"=>{"name"=>"soy"}, 
+                       "1"=>{"name"=>""}, 
+                       "2"=>{"name"=>""}, 
+                       "3"=>{"name"=>"sugar"},
+                       "4"=>{"name"=>""}}
+
+        params = valid_attributes.dup
+        params["ingredients_attributes"] = ingredients
+
+        post :create, {:recipe => params}, valid_session
+
+        saved_ingredients = assigns(:recipe).ingredients.map {|i| i.name}
+
+        expect(saved_ingredients).to match_array ["soy", "sugar"]
+      end
+    end
   end
 
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        {name: "Sugar"}
+        {name: "Sugar", ingredients_attributes: {}}
       }
 
       it "updates the requested recipe" do
@@ -138,4 +149,24 @@ RSpec.describe RecipesController, type: :controller do
     end
   end
 
+  before(:each) do
+    Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
+    sign_in UserFactory.create
+  end
+
+  let(:valid_attributes) {
+    {"name"=>"tofu", 
+      "ingredients_attributes"=>{"0"=>{"name"=>"soy"}, "1"=>{"name"=>"milk"}}, 
+      "directions"=>"buy from store \n cook at home", 
+      "prep_time"=>"3", 
+      "cook_time"=>"10", 
+      "source_url"=>"http://food.com", 
+      "serving"=>"3"}
+  }
+
+  let(:invalid_attributes) {
+    {name: "", ingredients_attributes: {}}
+  }
+
+  let(:valid_session) { {} }
 end
