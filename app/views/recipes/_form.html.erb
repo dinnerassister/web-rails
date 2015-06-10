@@ -45,6 +45,10 @@
     <%= f.label :serving %><br>
     <%= f.number_field :serving %>
   </div>
+  <%= f.fields_for :photos do |a| %>
+    <%= a.file_field :photo %>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>
@@ -54,8 +58,10 @@
 $('#add_ingredient_button').click( function(e) {
     e.preventDefault();
     var ingredient_length = $('#ingredient_list input').length;
+
     for (var i = ingredient_length; i < ingredient_length + 5; i++) {
       var input = '<input type="text" name="recipe[ingredients_attributes][{{index}}][name]" id="recipe_ingredients_attributes_{{index}}_name">';
+      
       var index_input = input.replace(/{{index}}/g, i)
       $('#ingredient_list').append(index_input);
     }

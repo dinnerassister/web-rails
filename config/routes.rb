@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :recipes
+  
   get 'user/edit' => 'users#edit'
   patch 'user/update' => 'users#update'
   get 'user' => 'users#show', as: :user

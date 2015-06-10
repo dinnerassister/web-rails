@@ -16,6 +16,8 @@ gem 'omniauth-twitter', '~> 1.2.0'
 gem 'omniauth-facebook'
 gem 'omniauth-yahoo-oauth2', '~> 1.1.0'
 
+gem "paperclip", "~> 4.2"
+
 group :development, :test do
   gem 'byebug'
   gem 'spring'
