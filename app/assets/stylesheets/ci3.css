@@ -1,0 +1,47 @@
+.ci3 {
+  position: relative;
+  margin: auto;
+  width: 90%;
+  height: 480px;
+}
+
+.ci3 img {
+  width: 700px;
+  border: 10px #FFF solid;
+}
+
+.ci3 .item {
+  display: none;
+  transition: left 0.6s ease-in-out 0s;
+}
+
+.ci3 .active, .ci3 .prev, .ci3 .next {
+  display: block;
+}
+
+.ci3 .active {
+  left: 220px;
+  margin: auto;
+  position: absolute;
+  z-index: 10;
+}
+
+.ci3 .next {
+  left:400px;
+  position: absolute;
+  opacity: 0.4;
+}
+
+.ci3 .prev {
+  left: 30px;
+  position: absolute;
+  opacity: 0.4;
+}
+
+.ci3 .prev img, .ci3 .next img {
+  -webkit-transform: scale(0.85); /* Saf3.1+, Chrome */
+     -moz-transform: scale(0.85); /* FF3.5+ */
+      -ms-transform: scale(0.85); /* IE9 */
+       -o-transform: scale(0.85); /* Opera 10.5+ */
+          transform: scale(0.85);
+}
