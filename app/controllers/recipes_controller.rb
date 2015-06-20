@@ -4,6 +4,7 @@ class RecipesController < ApplicationController
 
   def index
     @recipes = Recipe.all
+    # render layout: 'no_content'
   end
 
   def show
@@ -62,7 +63,7 @@ class RecipesController < ApplicationController
                                                       :source_url, :serving, 
                                                        photos_attributes: [ :photo, :photo_content_type, :photo_file_name, :tempfile, 
                                                                             :photo_file_size, :photo_updated_at, :_destroy],
-                                                       ingredients_attributes: [:name, :_destroy])
+                                                       ingredients_attributes: [:name, :id])
       prep_for_db cleaned_params
     end
 
