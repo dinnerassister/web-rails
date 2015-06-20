@@ -1,0 +1,61 @@
+.recipe {
+  line-height: 1.7em;
+
+  input {
+    border: 0px;
+    border-bottom: 1px solid #DDD;
+    padding-top: 0.3em;
+    width: 100%;
+  }
+
+  textarea {
+    background: url("line.png");
+    border: 0px;
+    height: 300px;
+    width: 100%;
+    min-width: 270px;
+    overflow: auto;
+    resize: vertical;
+  }
+
+  label {
+    padding: 0px;
+    line-height: 1em;
+  }
+
+  .ingredient {
+    button {
+      max-width: 200px;
+      margin: 1em;
+      margin-left: 0;      
+    }
+  }
+
+  .recipe-label {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-bottom: .5em;
+  }
+
+  .recipe-value {
+
+  }
+
+  img {
+    width: 100%;
+    border: 1px solid #DDD;
+  }
+
+  .row {
+    padding-bottom: 1em;
+  }
+
+  h1 {
+    color: #009477;
+    font-size: 5em;
+  }
+
+  ul {
+    padding-left: 1em;
+  }
+}
