@@ -1,10 +1,11 @@
+require 'recipes/db_preparer'
+
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
 
   def index
     @recipes = Recipe.all
-    # render layout: 'no_content'
   end
 
   def show
@@ -13,7 +14,6 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @recipe.ingredients = Array.new(10, Ingredient.new)
-    @recipe.photos = Array.new(3, RecipePhoto.new)
   end
 
   def edit
@@ -61,15 +61,13 @@ class RecipesController < ApplicationController
     def recipe_params
       cleaned_params = params.require(:recipe).permit(:name, :directions, :prep_time, :cook_time, 
                                                       :source_url, :serving, 
-                                                       photos_attributes: [ :photo, :photo_content_type, :photo_file_name, :tempfile, 
-                                                                            :photo_file_size, :photo_updated_at, :_destroy],
+                                                       photos_attributes: photo_params,
                                                        ingredients_attributes: [:name, :id])
-      prep_for_db cleaned_params
+      Recipes::DbPreparer.process(current_user.id, cleaned_params)
     end
 
-    def prep_for_db(cleaned_params)
-      cleaned_params[:user_id] = current_user.id
-      cleaned_params[:ingredients_attributes].delete_if {|k, v| v[:name].empty? }
-      cleaned_params
+    def photo_params
+      [ :photo, :photo_content_type, :photo_file_name, :tempfile, 
+        :photo_file_size, :photo_updated_at, :_destroy, :id]
     end
 end

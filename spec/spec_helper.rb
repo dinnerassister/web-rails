@@ -5,8 +5,4 @@ RSpec.configure do |config|
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
   end
-
-  config.after(:suite) do
-    FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
-  end
 end

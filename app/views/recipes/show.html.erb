@@ -52,7 +52,5 @@
   <div class="row col-sm-12">
     <a href="<%= @recipe.source_url %>">Source</a>
   </div>
-  <div class="btn btn-primary">
-      <%= link_to 'Edit', edit_recipe_path(@recipe) %>
-  </div>
+  <%= link_to 'Edit', edit_recipe_path(@recipe), class: "btn btn-primary" %>
 </div>

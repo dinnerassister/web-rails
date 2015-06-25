@@ -30,24 +30,38 @@
         <%= f.number_field :serving %>
       </div>
     </div>
+    <!-- Ingredients -->
     <div class="ingredient">
       <strong>Ingredients</strong> (one ingredient per line)
       <div id="ingredient_list">
       <%= f.fields_for :ingredients do |ingredient_form|%>
-        <%= ingredient_form.text_field :name %>
+        <%= ingredient_form.text_field :name, autocomplete: "off" %>
       <% end %>
       </div>
        <button type="button" id="add_ingredient_button" class="btn">Add ingredient</button>
     </div>
+
     <div class="field">
       <%= f.label :directions %><br>
       <%= f.text_area :directions, :required => true%>
     </div>
-    <div class="field">
-      <%= f.fields_for :photos do |a| %>
-        <%= a.file_field :photo %>
+
+    <!-- Photos -->
+    <div class="field recipe-form-photos row">
+      <%= f.fields_for :photos do |photo| %>
+        <div class="form-photo col-sm-4">
+          <i class="fa fa-trash fa-3x delete-photo"></i>
+          <%= image_tag photo.object.photo.url(:small) %>
+          <%= photo.hidden_field :_destroy, value: "false" %>
+          <%= photo.hidden_field :id, value: photo.object.id %>
+        </div>
       <% end %>
     </div>
+
+    <%= f.file_field "photos_attributes[#{photo_count}][photo]" %>
+    <%= f.file_field "photos_attributes[#{photo_count + 1}][photo]" %>
+    <%= f.file_field "photos_attributes[#{photo_count + 2}][photo]" %>
+
     <div class="field">
       <%= f.label :source_url %><br>
       <%= f.text_field :source_url %>
@@ -68,19 +82,32 @@
       var ingredient_length = $('#ingredient_list input').length;
 
       for (var i = ingredient_length; i < ingredient_length + 5; i++) {
-        var input = '<input type="text" name="recipe[ingredients_attributes][{{index}}][name]" id="recipe_ingredients_attributes_{{index}}_name">';
+        var input = '<input type="text" autocomplete=off name="recipe[ingredients_attributes][{{index}}][name]" id="recipe_ingredients_attributes_{{index}}_name">';
         
         var index_input = input.replace(/{{index}}/g, i)
         $('#ingredient_list').append(index_input);
       }
+
+      modifyEnterForInput();
   });
 
-  $('input').keypress(function (e) {
-    var key = e.which;
-    if (key == 13) {
-      e.preventDefault();
-      $(this).next().focus();
-    }
-  });   
+  function modifyEnterForInput() {
+    $('.recipe input').keypress(function (e) {
+      var key = e.which;
+      if (key == 13) {
+        e.preventDefault();
+        $(this).next().focus();
+      }
+    });
+  }
+
+  $('.delete-photo').click(function(e) {
+    e.preventDefault();
+    var parent = $(this).parent();
+    parent.css("display", "none");
+    parent.find("input").first().val("true");
+  });
+
+  modifyEnterForInput();
   </script>
 </div>
