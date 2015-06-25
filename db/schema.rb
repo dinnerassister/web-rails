@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20150609230143) do
 
   create_table "recipe_photos", force: :cascade do |t|
     t.integer  "recipe_id"
+    t.integer  "user_id"
     t.string   "description"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150609230143) do
   end
 
   add_index "recipe_photos", ["recipe_id"], name: "index_recipe_photos_on_recipe_id", using: :btree
+  add_index "recipe_photos", ["user_id"], name: "index_recipe_photos_on_user_id", using: :btree
 
   create_table "recipes", force: :cascade do |t|
     t.string   "name"

@@ -23,7 +23,6 @@ RSpec.describe RecipesController, type: :controller do
     it "assigns a new recipe as @recipe" do
       get :new, {}, valid_session
       expect(assigns(:recipe)).to be_a_new(Recipe)
-      expect(assigns(:recipe).photos.size).to eq 3
       expect(assigns(:recipe).ingredients.size).to eq 10
     end
   end
