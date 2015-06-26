@@ -52,7 +52,8 @@
         <div class="form-photo col-sm-4">
           <i class="fa fa-trash fa-3x delete-photo"></i>
           <%= image_tag photo.object.photo.url(:small) %>
-          <%= photo.hidden_field :_destroy, value: "false" %>
+          <%= photo.hidden_field :_destroy, value: "false", 
+                                  class: "delete-photo-field" %>
           <%= photo.hidden_field :id, value: photo.object.id %>
         </div>
       <% end %>
@@ -77,37 +78,14 @@
   <% end %>
 
   <script type="text/javascript">
-  $('#add_ingredient_button').click( function(e) {
-      e.preventDefault();
-      var ingredient_length = $('#ingredient_list input').length;
-
-      for (var i = ingredient_length; i < ingredient_length + 5; i++) {
-        var input = '<input type="text" autocomplete=off name="recipe[ingredients_attributes][{{index}}][name]" id="recipe_ingredients_attributes_{{index}}_name">';
-        
-        var index_input = input.replace(/{{index}}/g, i)
-        $('#ingredient_list').append(index_input);
-      }
-
-      modifyEnterForInput();
-  });
-
-  function modifyEnterForInput() {
-    $('.recipe input').keypress(function (e) {
-      var key = e.which;
-      if (key == 13) {
-        e.preventDefault();
-        $(this).next().focus();
-      }
+    $( document ).ready(function() {
+      var elements = {'delete_elements': '.delete-photo',
+                      'delete_photo_field': '.delete-photo-field',
+                      'ingredient_list': '#ingredient_list',
+                      'add_ingredient': '#add_ingredient_button',
+                      'focus_next': '.recipe input'
+                    }
+      bindRecipeEvents(elements);
     });
-  }
-
-  $('.delete-photo').click(function(e) {
-    e.preventDefault();
-    var parent = $(this).parent();
-    parent.css("display", "none");
-    parent.find("input").first().val("true");
-  });
-
-  modifyEnterForInput();
   </script>
 </div>
