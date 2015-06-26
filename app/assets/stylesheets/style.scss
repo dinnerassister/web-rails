@@ -1,10 +1,4 @@
-$primary-color: #FF4618;
-$secondary-color: #1ABC9C;
-$secondary-dark-color: #009477;
-$dark-gray: #333;
-$mid-gray: #AAAAAA;
-$light-gray: #DDD;
-$white: #FFFFFF;
+@import "_colors";
 
 html {
     height: 100%;
@@ -38,13 +32,16 @@ body {
   background-color: $white;
 }
 
+header {
+  background-color: $primary-color;
+}
+
 nav {
   font-family: 'Roboto', sans-serif;
   position: fixed;
   z-index: 100;
   width: 100%;
   color: $white;
-  background-color: $primary-color;
   padding-right: 15px;
 
   a {
@@ -60,18 +57,6 @@ nav {
   a:hover, a:focus {
     color: $primary-color;
     background-color: $white;
-  }
-}
-
-.banner {
-  background-color: $secondary-color;
-  background-image: linear-gradient($secondary-color, #50DEBD);
-  padding: 20px;
-  margin-left: -75px;
-  width: 113.1%;
-
-  img {
-    border: 10px solid $white;
   }
 }
 
