@@ -59,14 +59,17 @@
       <% end %>
     </div>
 
-    <%= f.file_field "photos_attributes[#{photo_count}][photo]" %>
-    <%= f.file_field "photos_attributes[#{photo_count + 1}][photo]" %>
-    <%= f.file_field "photos_attributes[#{photo_count + 2}][photo]" %>
-
+    <div class="field">
+      <%= f.file_field "photos_attributes[#{photo_count}][photo]" %>
+      <%= f.file_field "photos_attributes[#{photo_count + 1}][photo]" %>
+      <%= f.file_field "photos_attributes[#{photo_count + 2}][photo]" %>
+    </div>
+    
     <div class="field">
       <%= f.label :source_url %><br>
       <%= f.text_field :source_url %>
     </div>
+
     <div class="row">
       <div class="col-sm-6">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -87,5 +90,6 @@
                     }
       bindRecipeEvents(elements);
     });
+
   </script>
 </div>
