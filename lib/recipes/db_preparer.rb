@@ -11,18 +11,21 @@ module Recipes
 
     def prep
       params[:user_id] = user_id
-      mark_for_deletion(params[:ingredients_attributes], :name)
+      delete_blank(params[:ingredients_attributes], :name)
       prep_photos
+      delete_blank(params[:tags_attributes], :name)
       params
     end
 
     private
     attr_reader :params, :user_id
 
-    def mark_for_deletion(items, required_value)
-      items.delete_if {|k, v| v[required_value].blank? && !v[:id]}
-      items.each do |index, value|
-        value[:_destroy] = true if value[required_value].blank?
+    def delete_blank(items, required_value)
+      if items
+        items.delete_if {|k, v| v[required_value].blank? && !v[:id]}
+        items.each do |index, value|
+          value[:_destroy] = true if value[required_value].blank?
+        end
       end
     end
 

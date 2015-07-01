@@ -62,6 +62,7 @@ class RecipesController < ApplicationController
       cleaned_params = params.require(:recipe).permit(:name, :directions, :prep_time, :cook_time, 
                                                       :source_url, :serving, 
                                                        photos_attributes: photo_params,
+                                                       tags_attributes: [:name, :id],
                                                        ingredients_attributes: [:name, :id])
       Recipes::DbPreparer.process(current_user.id, cleaned_params)
     end
