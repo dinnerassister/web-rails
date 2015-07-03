@@ -20,5 +20,7 @@ Rails.application.configure do
   config.active_support.test_order = :random
   config.active_support.deprecation = :stderr
 
+  config.x.generated_file_location = "#{Rails.root}/spec/test_files/"
+
   Paperclip::Attachment.default_options[:path] = "#{Rails.root}/spec/test_files/:class/:id_partition/:style.:extension"
 end

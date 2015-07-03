@@ -40,6 +40,11 @@ RSpec.configure do |config|
   OmniAuth.config.test_mode = true
   require 'helpers/user_factory'
 
+  require 'fileutils'
+  config.before(:suite) do
+    FileUtils::mkdir_p "#{Rails.root}/spec/test_files/"
+  end
+
   config.after(:suite) do
     FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
   end

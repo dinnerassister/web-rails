@@ -132,15 +132,15 @@ RSpec.describe RecipesController, type: :controller do
       end
 
       it "updates tags" do
-        tag1 = Tag.create(name: "salad");
+        tag1 = Tag.create(name: "same name");
         tag2 = Tag.create(name: "appetizer");
         recipe.tags = [tag1, tag2]
 
-        tags = {"0"=>{ "name"=>"green"}, 
-                       "1"=>{"id": tag1.id, "name"=> tag1.name}, 
-                       "2"=>{"name"=>""}, 
-                       "3"=>{"id": tag2.id, "name"=>"lettuce"},
-                       "4"=>{"name"=>""}}
+        tags = {"0"=>{ "name"=>"new tag"}, 
+                 "1"=>{"id": tag1.id, "name"=> tag1.name}, 
+                 "2"=>{"name"=>""}, 
+                 "3"=>{"id": tag2.id, "name"=>"updated tag"},
+                 "4"=>{"name"=>""}}
 
 
         params = attributes.dup
@@ -148,7 +148,26 @@ RSpec.describe RecipesController, type: :controller do
 
         put :update, {:id => recipe.to_param, :recipe => params}, valid_session
 
-        expect(recipe_values(:tags)).to match_array ["salad", "lettuce", "green"]
+        expect(recipe_values(:tags)).to match_array ["same name", "updated tag", "new tag"]
+      end
+
+      it "deletes the tag assocation, not the tag" do
+        tag_name = "salad"
+        tag = Tag.create(name: "salad");
+        recipe.tags = [tag]
+
+        params = attributes.dup
+        params["tags_attributes"] = {"0"=>{ "name"=> tag_name}}
+        post :create, {:recipe => params}, valid_session
+
+        updated_params = attributes.dup
+        updated_params["tags_attributes"] = {"0"=>{ "name"=>"green"}}
+        new_recipe = assigns(:recipe)
+        put :update, {:id => new_recipe.to_param, :recipe => updated_params}, valid_session
+
+        new_recipe.reload
+        expect(recipe_values(:tags)).to eq ["green"]
+        expect(Tag.where(name: "salad").count).to eq 1
       end
     end
   end
