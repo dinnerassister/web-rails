@@ -1,3 +1,8 @@
+<% content_for :header do %>
+  <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+<% end %>
+
 <div class="recipe">
   <%= form_for(@recipe) do |f| %>
     <% if @recipe.errors.any? %>
@@ -70,6 +75,14 @@
       <%= f.text_field :source_url %>
     </div>
 
+    <div class="field">
+      <label>Tags</label>
+      <select class="tags" name="tags" id="recipe-tags" multiple="multiple">
+        <option value="AL">Alabama</option>
+        <option value="WY">Wyoming</option>
+      </select>
+    </div>
+
     <div class="row">
       <div class="col-sm-6">
         <button type="submit" class="btn btn-primary">Submit</button>
@@ -91,5 +104,12 @@
       bindRecipeEvents(elements);
     });
 
+  $("#recipe-tags").select2({
+      ajax: {
+        url: "http://localhost:3000/system/recipes/tags.json",
+        cache: "true"
+      }
+    });
+     
   </script>
 </div>
