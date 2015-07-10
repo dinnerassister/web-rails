@@ -31,7 +31,6 @@ RecipeBinder.prototype.bindAddIngredient = function() {
     $(this.focus_next).keypress(function (e) {
       var key = e.which;
       if (key == 13) {
-        console.log("in binding");
         e.preventDefault();
         $(this).next().focus();
       }

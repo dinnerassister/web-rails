@@ -80,16 +80,19 @@ input::-webkit-inner-spin-button {
 
 button, .btn {
   border: 1px solid $mid-gray;
-  background-color: #EFEFEF;
+  background-color: $light-gray;
   font-weight: 550;
-  color: $primary-color;
+  color: $dark-gray;
   margin: .5em;
   width: 70%;
   font-size: 1.3em;
 
   a {
     text-decoration: none;
-    color: $primary-color;
+  }
+
+  a:hover {
+    color: $primary-color;  
   }
 }
 

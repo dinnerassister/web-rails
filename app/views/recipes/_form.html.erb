@@ -1,5 +1,6 @@
 <% content_for :header do %>
-  <script src="/assets/javascripts/typeahead.bundle.min.js"></script>
+  <script src="/assets/typeahead.bundle.min.js"></script>
+  <script src="/assets/mustache.min.js"></script>
 <% end %>
 
 <div class="recipe">
@@ -54,7 +55,7 @@
     <div class="field recipe-form-photos row">
       <%= f.fields_for :photos do |photo| %>
         <div class="form-photo col-sm-4">
-          <i class="fa fa-trash fa-3x delete-photo"></i>
+          <i class="icon fa fa-trash fa-3x delete-photo"></i>
           <%= image_tag photo.object.photo.url(:small) %>
           <%= photo.hidden_field :_destroy, value: "false", 
                                   class: "delete-photo-field" %>
@@ -75,11 +76,20 @@
     </div>
 
     <div class="field">
-      <label>Tags</label>
-      <select class="tags" name="tags" id="recipe-tags" multiple="multiple">
-        <option value="AL">Alabama</option>
-        <option value="WY">Wyoming</option>
-      </select>
+      <div class="recipe_tags">
+        <label>Tags</label>
+        <ul id="tag_list">
+          <%= f.fields_for :tags do |tag_form|%>
+            <li class="tag">
+              <span class="icon glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span><%= tag_form.object.name %></span>
+              <%= tag_form.hidden_field :name %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+
+      <input id="recipe_tags_input" class="typeahead" type="text" placeholder="Add tags" autocomplete="off">
     </div>
 
     <div class="row">
@@ -91,6 +101,14 @@
       </div>
     </div>
   <% end %>
+
+<script id="tag_template" type="x-tmpl-mustache">
+  <li class="tag">
+    <span class="icon glyphicon glyphicon-remove" aria-hidden="true"></span>
+    <span>{{name}}</span>
+    <input value="{{name}}" name="recipe[tags_attributes][{{index}}][name]" id="recipe_tags_attributes_{{index}}_name" type="hidden">
+  </li>
+</script>
 
   <script type="text/javascript">
     $( document ).ready(function() {
@@ -104,5 +122,38 @@
     });
 
      
+
+     var tags = new Bloodhound({
+      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+      queryTokenizer: Bloodhound.tokenizers.whitespace,
+      identify: function(obj) { return obj.name; },
+      prefetch: {
+        url: '/system/recipes/tags.json',
+        cache: false
+      }
+    });
+
+    $('#recipe_tags_input .typeahead').typeahead(null, {
+      name: 'recipe-tags',
+      source: tags,
+      minLength: 2,
+      limit: 10,
+      display: "name"
+    });
+
+    $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+      console.log('this is what I did: ' + suggestion.id);
+    });
+
+    $('#recipe_tags_input').keypress(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+        var item_length = $('#tag_list li').length;
+        var template = $('#tag_template').html();
+        Mustache.parse(template);
+        var html = Mustache.render(template, {name: $(this).val(), index: item_length});
+        $('#tag_list').append(html);
+      }
+    });
   </script>
 </div>
