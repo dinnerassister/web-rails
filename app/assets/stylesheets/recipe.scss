@@ -98,8 +98,11 @@
 
   .recipe_tags {
     display: block;
-    min-height: 150px;
     list-style: none;
+
+    #tag_list {
+      min-height: 150px;
+    }
 
     .tag {
       cursor: default;
@@ -119,6 +122,13 @@
         background-color: $light-gray;
       }
     }
+
+    
   }
   
+}
+
+
+.tt-menu {
+  background-color: #FFF;
 }

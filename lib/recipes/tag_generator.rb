@@ -6,10 +6,12 @@ module Recipes
     end
 
     def self.create_file
-      File.open(FILE_PATH, 'w') { |f|
-        tags = Tag.all.map{|t| {id: t.id, name: t.name}}
-        f.print tags.uniq.to_s
-      }
+      # File.open(FILE_PATH, 'w') { |f|
+      #   tags = Tag.all.map{|t| "{\"id\":#{t.id},\"name\":\"#{t.name}\"}"}
+      #   f.print "["
+      #   f.print tags.join(",")
+      #   f.print "]"
+      # }
     end
 
     private

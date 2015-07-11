@@ -117,6 +117,17 @@ RSpec.describe RecipesController, type: :controller do
     end
 
     describe "tag" do
+      it "save created tag" do
+        tag = Tag.create(name: "vietnamese")
+        params = attributes.dup
+        params["tags_attributes"] = {"0"=>{"id" => tag.id, "name"=> tag.name}}
+
+        post :create, {:recipe => params}, valid_session
+
+        expect(recipe_values(:tags)).to match_array [tag.name]
+        expect(Tag.where(name: tag.name).count).to eq(1)
+      end
+
       it "does not save empty tags" do
         tags = {"0"=>{"name"=>""}, 
                        "1"=>{"name"=>"vegan"}, 

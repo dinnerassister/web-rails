@@ -75,8 +75,7 @@
       <%= f.text_field :source_url %>
     </div>
 
-    <div class="field">
-      <div class="recipe_tags">
+    <div class="field recipe_tags">
         <label>Tags</label>
         <ul id="tag_list">
           <%= f.fields_for :tags do |tag_form|%>
@@ -87,7 +86,6 @@
             </li>
           <% end %>
         </ul>
-      </div>
 
       <input id="recipe_tags_input" class="typeahead" type="text" placeholder="Add tags" autocomplete="off">
     </div>
@@ -107,6 +105,7 @@
     <span class="icon glyphicon glyphicon-remove" aria-hidden="true"></span>
     <span>{{name}}</span>
     <input value="{{name}}" name="recipe[tags_attributes][{{index}}][name]" id="recipe_tags_attributes_{{index}}_name" type="hidden">
+    <input value="{{id}}" name="recipe[tags_attributes][{{index}}][id]" id="recipe_tags_attributes_{{index}}_id" type="hidden">
   </li>
 </script>
 
@@ -119,21 +118,18 @@
                       'focus_next': '.recipe input'
                     }
       bindRecipeEvents(elements);
-    });
-
      
 
      var tags = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      identify: function(obj) { return obj.name; },
       prefetch: {
         url: '/system/recipes/tags.json',
         cache: false
       }
     });
 
-    $('#recipe_tags_input .typeahead').typeahead(null, {
+    $('#recipe_tags_input').typeahead(null, {
       name: 'recipe-tags',
       source: tags,
       minLength: 2,
@@ -141,19 +137,45 @@
       display: "name"
     });
 
-    $('.typeahead').bind('typeahead:select', function(ev, suggestion) {
+    $('#recipe_tags_input').bind('typeahead:select', function(ev, suggestion) {
       console.log('this is what I did: ' + suggestion.id);
+      addTag(suggestion.id, suggestion.name);
+    });
+
+    $('#recipe_tags_input').bind('typeahead:autocomplete', function(ev, suggestion) {
+      addTag(suggestion.id, suggestion.name);
     });
 
     $('#recipe_tags_input').keypress(function(e) {
       if (e.which == 13) {
         e.preventDefault();
+        addTag("", $(this).val());
+        // var item_length = $('#tag_list li').length;
+        // var template = $('#tag_template').html();
+        // Mustache.parse(template);
+        // var html = Mustache.render(template, {name: $(this).val(), index: item_length});
+        // $('#tag_list').append(html);
+        // $(this).val("");
+        // $('.twitter-typeahead .tt-menu').hide();
+      }
+    });
+
+    function addTag(tag_id, tag_name) {
         var item_length = $('#tag_list li').length;
         var template = $('#tag_template').html();
         Mustache.parse(template);
-        var html = Mustache.render(template, {name: $(this).val(), index: item_length});
+        var html = Mustache.render(template, {name: tag_name, id: tag_id, index: item_length});
         $('#tag_list').append(html);
-      }
+        $('#recipe_tags_input').val("");
+        $('.twitter-typeahead .tt-menu').hide();      
+    }
+
+
+
     });
+
+
+
+
   </script>
 </div>

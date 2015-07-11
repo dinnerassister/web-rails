@@ -8,10 +8,7 @@ RSpec.describe Tag do
     tag2 = Tag.create(name: "salad")
     tag3 = Tag.create(name: "green")
 
-    tag_json = [{id: tag1.id, name: tag1.name},
-                {id: tag2.id, name: tag2.name},
-                {id: tag3.id, name: tag3.name}
-                ].to_s
+    tag_json = "[{\"id\":#{tag1.id},\"name\":\"vegan\"},{\"id\":#{tag2.id},\"name\":\"salad\"},{\"id\":#{tag3.id},\"name\":\"green\"}]"
 
     expect(file).to eq(tag_json)
   end
