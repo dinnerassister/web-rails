@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require ci3_carousel
+//= require typeahead.bundle.min
+//= mustache.min
 //= require_tree .

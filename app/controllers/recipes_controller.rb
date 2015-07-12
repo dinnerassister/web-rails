@@ -24,6 +24,7 @@ class RecipesController < ApplicationController
 
     respond_to do |format|
       if @recipe.save
+        save_tags
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -36,6 +37,7 @@ class RecipesController < ApplicationController
   def update
     respond_to do |format|
       if @recipe.update(recipe_params)
+        save_tags
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipe }
       else
@@ -54,8 +56,25 @@ class RecipesController < ApplicationController
   end
 
   private
+    def save_tags
+      tags = params[:tags]
+      
+      if tags
+        tags = params[:tags].uniq
+        tags = tags.map {|t| ActionController::Base.helpers.strip_tags(t)}
+        tags = tags.delete_if {|t| t.blank? }
+        tags = tags.map {|t| Tag.find_or_create_by(name: t.capitalize)}
+      else
+        tags = []
+      end
+
+      @recipe.tags = tags
+    end
+
+
     def set_recipe
       @recipe = Recipe.find(params[:id])
+      @tag_names = Tag.pluck(:name)
     end
 
     def recipe_params

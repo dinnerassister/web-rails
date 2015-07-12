@@ -1,6 +1,5 @@
 <% content_for :header do %>
-  <script src="/assets/typeahead.bundle.min.js"></script>
-  <script src="/assets/mustache.min.js"></script>
+  
 <% end %>
 
 <div class="recipe">
@@ -78,11 +77,11 @@
     <div class="field recipe_tags">
         <label>Tags</label>
         <ul id="tag_list">
-          <%= f.fields_for :tags do |tag_form|%>
+          <% @recipe.tags.each do |tag| %>
             <li class="tag">
-              <span class="icon glyphicon glyphicon-remove" aria-hidden="true"></span>
-              <span><%= tag_form.object.name %></span>
-              <%= tag_form.hidden_field :name %>
+              <span class="delete_icon glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span><%= sanitize tag.name %></span>
+              <input value="<%= tag.name %>" name="tags[]" type="hidden">
             </li>
           <% end %>
         </ul>
@@ -92,90 +91,46 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn" onclick="window.history.go(-1); return false;" >Cancel</button>
       </div>
       <div class="col-sm-6">
-        <button type="button" class="btn" onclick="window.history.go(-1); return false;" >Cancel</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
   <% end %>
 
-<script id="tag_template" type="x-tmpl-mustache">
-  <li class="tag">
-    <span class="icon glyphicon glyphicon-remove" aria-hidden="true"></span>
-    <span>{{name}}</span>
-    <input value="{{name}}" name="recipe[tags_attributes][{{index}}][name]" id="recipe_tags_attributes_{{index}}_name" type="hidden">
-    <input value="{{id}}" name="recipe[tags_attributes][{{index}}][id]" id="recipe_tags_attributes_{{index}}_id" type="hidden">
-  </li>
-</script>
 
-  <script type="text/javascript">
-    $( document ).ready(function() {
+  <script id="tag_template" type="x-tmpl-mustache">
+    <li class="tag">
+      <span class="delete_icon glyphicon glyphicon-remove" aria-hidden="true"></span>
+      <span>{{name}}</span>
+      <input value="{{name}}" name="tags[]" type="hidden">
+    </li>
+  </script>
+
+  <script id="ingredient_template" type="x-tmpl-mustache">
+    <input type="text" autocomplete=off name="recipe[ingredients_attributes][{{index}}][name]" id="recipe_ingredients_attributes_{{index}}_name">
+  </script>
+
+  <script type="text/javascript"> 
+    var bindElements = function () {
       var elements = {'delete_elements': '.delete-photo',
                       'delete_photo_field': '.delete-photo-field',
                       'ingredient_list': '#ingredient_list',
                       'add_ingredient': '#add_ingredient_button',
-                      'focus_next': '.recipe input'
+                      'ingredient_template': '#ingredient_template',
+                      'focus_next': '.recipe input',
+                      'tag_input': '#recipe_tags_input',
+                      'tag_list': '#tag_list',
+                      'tag_delete_fields': '.tag .delete_icon',
+                      'tag_template': '#tag_template',
+                      'tag_names': <%= raw @tag_names %>
                     }
-      bindRecipeEvents(elements);
-     
-
-     var tags = new Bloodhound({
-      datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-      queryTokenizer: Bloodhound.tokenizers.whitespace,
-      prefetch: {
-        url: '/system/recipes/tags.json',
-        cache: false
-      }
-    });
-
-    $('#recipe_tags_input').typeahead(null, {
-      name: 'recipe-tags',
-      source: tags,
-      minLength: 2,
-      limit: 10,
-      display: "name"
-    });
-
-    $('#recipe_tags_input').bind('typeahead:select', function(ev, suggestion) {
-      console.log('this is what I did: ' + suggestion.id);
-      addTag(suggestion.id, suggestion.name);
-    });
-
-    $('#recipe_tags_input').bind('typeahead:autocomplete', function(ev, suggestion) {
-      addTag(suggestion.id, suggestion.name);
-    });
-
-    $('#recipe_tags_input').keypress(function(e) {
-      if (e.which == 13) {
-        e.preventDefault();
-        addTag("", $(this).val());
-        // var item_length = $('#tag_list li').length;
-        // var template = $('#tag_template').html();
-        // Mustache.parse(template);
-        // var html = Mustache.render(template, {name: $(this).val(), index: item_length});
-        // $('#tag_list').append(html);
-        // $(this).val("");
-        // $('.twitter-typeahead .tt-menu').hide();
-      }
-    });
-
-    function addTag(tag_id, tag_name) {
-        var item_length = $('#tag_list li').length;
-        var template = $('#tag_template').html();
-        Mustache.parse(template);
-        var html = Mustache.render(template, {name: tag_name, id: tag_id, index: item_length});
-        $('#tag_list').append(html);
-        $('#recipe_tags_input').val("");
-        $('.twitter-typeahead .tt-menu').hide();      
+      bindRecipeEvents(elements);      
     }
 
-
-
-    });
-
-
-
+  $(document).ready(bindElements);
+  $(document).on("page:change", bindElements);
 
   </script>
 </div>
