@@ -67,28 +67,9 @@ RSpec.describe RecipesController, type: :controller do
       end
     end
 
-    context "preparing data for database" do
-      it "sets the user id" do
-        post :create, {:recipe => valid_attributes}, valid_session
-        expect(assigns(:recipe).user_id).to eq assigns(:current_user).id
-      end
-
-      it "does not save empty ingredients" do
-        ingredients = {"0"=>{"name"=>"soy"}, 
-                       "1"=>{"name"=>""}, 
-                       "2"=>{"name"=>""}, 
-                       "3"=>{"name"=>"sugar"},
-                       "4"=>{"name"=>""}}
-
-        params = valid_attributes.dup
-        params["ingredients_attributes"] = ingredients
-
-        post :create, {:recipe => params}, valid_session
-
-        saved_ingredients = assigns(:recipe).ingredients.map {|i| i.name}
-
-        expect(saved_ingredients).to match_array ["soy", "sugar"]
-      end
+    it "associates recipe with current user" do
+      post :create, {:recipe => valid_attributes}, valid_session
+      expect(assigns(:recipe).user_id).to eq assigns(:current_user).id
     end
   end
 
@@ -102,7 +83,7 @@ RSpec.describe RecipesController, type: :controller do
         recipe = Recipe.create! valid_attributes
         put :update, {:id => recipe.to_param, :recipe => new_attributes}, valid_session
         recipe.reload
-        
+        expect(recipe.name).to eq(new_attributes[:name])
       end
 
       it "assigns the requested recipe as @recipe" do
@@ -154,8 +135,9 @@ RSpec.describe RecipesController, type: :controller do
   end
 
   let(:valid_attributes) {
-    {"name"=>"tofu", 
-      "ingredients_attributes"=>{"0"=>{"name"=>"soy"}, "1"=>{"name"=>"milk"}}, 
+    { "name"=>"tofu", 
+      "ingredients_attributes"=>{"0"=>{"name"=>"soy"}, "1"=>{"name"=>"milk"}},
+      "tags_attributes"=>{"0"=>{"name"=>"vegan"}, "1"=>{"name"=>"vegi"}}, 
       "directions"=>"buy from store \n cook at home", 
       "prep_time"=>"3", 
       "cook_time"=>"10", 

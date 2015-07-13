@@ -13,7 +13,7 @@
 .recipe {
   line-height: 1.7em;
 
-  input {
+  input, select {
     border: 0px;
     border-bottom: 1px solid $light-gray;
     padding-top: 0.3em;
@@ -80,10 +80,11 @@
       display: block;
     }
 
-    i {
+    .icon {
       position: absolute;
       right: 1em;
-      color: #FF0000;
+      top: .5em;
+      color: $light-gray;
       opacity: 0.8;
     }
 
@@ -95,5 +96,43 @@
     }
   }
 
+  .recipe_tags {
+    display: block;
+    list-style: none;
+
+    #tag_list {
+      min-height: 150px;
+    }
+
+    .tag {
+      cursor: default;
+      width: auto;
+    }
+
+    li {
+      display: inline-block;
+      margin: 1em;
+      background-color: $light-gray;
+      border-radius: 6px;
+      margin: 5px;
+      padding: 5px;
+      padding-right: 10px;
+      padding-left: 7px;
+      input {
+        background-color: $light-gray;
+      }
+    }
+
+    
+  }
   
+}
+
+
+.tt-menu {
+  background-color: #FFF;
+  width: 100%;
+  border: 1px solid $light-gray;
+  border-top: none;
+  padding: 5px;
 }

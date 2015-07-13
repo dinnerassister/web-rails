@@ -5,25 +5,29 @@ var RecipeBinder = function (elements) {
   this.delete_field = elements['delete_photo_field'];
   this.ingredient_list = elements['ingredient_list'];
   this.add_ingredient = elements['add_ingredient'];
+  this.ingredient_template = elements['ingredient_template'];
   this.focus_next = elements['focus_next'];
+  this.tag_input = elements['tag_input'];
+  this.tag_list = elements['tag_list'];
+  this.tag_delete_fields = elements['tag_delete_fields'];
+  this.tag_names = elements['tag_names'];
+  this.tag_template = elements['tag_template'];
 }
 
 RecipeBinder.prototype.bindAddIngredient = function() {
   var binder = this;
   $(this.add_ingredient).click( function(e) {
-      e.preventDefault();
-      var ingredient_length = $(binder.ingredient_list + ' input').length;
+    e.preventDefault();
+    var ingredient_length = $(binder.ingredient_list + ' input').length;
+    var template = $(binder.ingredient_template).html();
+    Mustache.parse(template);
 
-      for (var i = ingredient_length; i < ingredient_length + 5; i++) {
-        var input = '<input type="text" autocomplete=off '
-                  + 'name="recipe[ingredients_attributes][{{index}}][name]" '
-                  + 'id="recipe_ingredients_attributes_{{index}}_name">';
-        
-        var index_input = input.replace(/{{index}}/g, i);
-        $(binder.ingredient_list).append(index_input);
-      }
+    for (var i = ingredient_length; i < ingredient_length + 5; i++) {
+      var html = Mustache.render(template, {index: i});
+      $(binder.ingredient_list).append(html);
+    }
 
-      binder.bindFocusNextOnEnter();
+    binder.bindFocusNextOnEnter();
   });
 }
 
@@ -31,7 +35,6 @@ RecipeBinder.prototype.bindAddIngredient = function() {
     $(this.focus_next).keypress(function (e) {
       var key = e.which;
       if (key == 13) {
-        console.log("in binding");
         e.preventDefault();
         $(this).next().focus();
       }
@@ -48,9 +51,57 @@ RecipeBinder.prototype.bindDeleteElement = function() {
   });
 }
 
+RecipeBinder.prototype.bindTagInput = function() {
+  var tags = new Bloodhound({
+    datumTokenizer: Bloodhound.tokenizers.whitespace,
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: this.tag_names
+  });
+
+  $(this.tag_input).typeahead(null, {
+    name: 'recipe-tags',
+    source: tags,
+    limit: 10
+  });
+
+  var binder = this;
+  $(this.tag_input).bind('typeahead:select', function(ev, suggestion) {
+    binder.addTag(suggestion);
+  });
+
+  $(this.tag_input).keypress(function(e) {
+    if (e.which == 13) {
+      e.preventDefault();
+      binder.addTag($(this).val());
+    }
+  });
+}
+
+RecipeBinder.prototype.addTag = function(tag_name) {
+  var item_length = $(this.tag_list + ' li').length;
+  var template = $(this.tag_template).html();
+  Mustache.parse(template);
+  var html = Mustache.render(template, {name: tag_name});
+
+  $(this.tag_list).append(html);
+  $('.typeahead').typeahead('close');
+  $(this.tag_input).val("");
+  this.bindTagDeletion();
+}
+
+
+RecipeBinder.prototype.bindTagDeletion = function() {
+  $(this.tag_delete_fields).click(function(e) {
+    e.preventDefault();
+    $(this).parent().remove();
+  });
+}
+
 function bindRecipeEvents(elements) {
   var binder = new RecipeBinder(elements);
   binder.bindAddIngredient();
   binder.bindDeleteElement();
   binder.bindFocusNextOnEnter();
+  binder.bindTagInput();
+  binder.bindTagDeletion();
 }
