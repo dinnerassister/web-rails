@@ -3,36 +3,40 @@
     <%= @recipe.name %>
   </h1>
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <%= image_tag @recipe.photo.url(:medium) %>
     </div>
-    <div class="col-sm-4">
-      <div class="recipe-label">
-        Prep time:
-      </div>
-      <div class="recipe-value">
+    <div class="col-sm-6">
+      <div class="field">
+        <label>Prep time:</label>
         <%= @recipe.prep_time %>
       </div>
-      <div class="recipe-label">
-        Cook time:
-      </div>
-      <div class="recipe-value">
+      <div class="field">
+        <label>Cook time:</label>
         <%= @recipe.cook_time %>
       </div>
-      <div class="recipe-label">
-        Serving:
-      </div>
-      <div class="recipe-value">
+      <div class="field">
+        <label>Serving:</label>
         <%= @recipe.serving %>
+      </div>
+      <div class="field recipe_tags">
+        <label>Tags:</label>
+        <ul id="tag_list">
+          <% @recipe.tags.each do |tag| %>
+            <li class="tag">
+              <span class="delete_icon glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <span><%= sanitize tag.name %></span>
+              <input value="<%= tag.name %>" name="tags[]" type="hidden"></input>
+            </li>
+          <% end %>
+        </ul>
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-4">
-      <div class="recipe-label">
-        Ingredients
-      </div>
-      <div class="recipe-value">
+      <div class="field">
+        <label>Ingredients</label>
       <ul>
       <% @recipe.ingredients.each do |ingredient| %>
         <li><%= ingredient.name %></li>
@@ -41,10 +45,8 @@
       </div>
     </div>
     <div class="col-sm-8">
-      <div class="recipe-label">
-        Direction:
-      </div>
-      <div class="recipe-value">
+      <div class="field">
+        <label>Direction:</label>
         <%= simple_format(@recipe.directions) %>
       </div>
     </div>
@@ -52,5 +54,9 @@
   <div class="row col-sm-12">
     <a href="<%= @recipe.source_url %>">Source</a>
   </div>
-  <%= link_to 'Edit', edit_recipe_path(@recipe), class: "btn btn-primary" %>
+  <div class="field">
+    <% if editable? %>
+      <%= link_to 'Edit', edit_recipe_path(@recipe), class: "btn btn-primary" %>
+    <% end %>
+  </div>
 </div>

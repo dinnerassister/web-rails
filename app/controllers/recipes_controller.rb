@@ -17,13 +17,14 @@ class RecipesController < ApplicationController
   end
 
   def edit
-  end
+  end 
 
   def create
     @recipe = Recipe.new(recipe_params)
 
     respond_to do |format|
       if @recipe.save
+        save_tags
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -36,6 +37,7 @@ class RecipesController < ApplicationController
   def update
     respond_to do |format|
       if @recipe.update(recipe_params)
+        save_tags
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipe }
       else
@@ -54,14 +56,31 @@ class RecipesController < ApplicationController
   end
 
   private
+    def save_tags
+      tags = params[:tags]
+      
+      if tags
+        tags = params[:tags].map {|t| ActionController::Base.helpers.strip_tags(t.downcase)}
+        tags = tags.delete_if {|t| t.blank? }
+        tags = tags.uniq.map {|t| Tag.find_or_create_by(name: t.capitalize)}
+      else
+        tags = []
+      end
+
+      @recipe.tags = tags
+    end
+
+
     def set_recipe
       @recipe = Recipe.find(params[:id])
+      @tag_names = Tag.pluck(:name)
     end
 
     def recipe_params
       cleaned_params = params.require(:recipe).permit(:name, :directions, :prep_time, :cook_time, 
                                                       :source_url, :serving, 
                                                        photos_attributes: photo_params,
+                                                       tags_attributes: [:name, :id],
                                                        ingredients_attributes: [:name, :id])
       Recipes::DbPreparer.process(current_user.id, cleaned_params)
     end
