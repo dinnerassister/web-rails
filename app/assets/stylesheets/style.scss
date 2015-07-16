@@ -139,3 +139,17 @@ ul {
     font-size: 16px;
   }
 }
+
+.circle {
+  border: 3px solid $dark-gray;
+  border-radius: 50%;
+  color: $dark-gray;
+  display: block;
+  font-size: 1.7rem;
+  font-weight: 600;
+  height: 3.2rem;
+  line-height: 1.7em;
+  margin: 0px auto 1rem;
+  text-align: center;
+  width: 3.2rem;
+}
