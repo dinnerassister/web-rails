@@ -86,7 +86,7 @@ RSpec.feature 'Authentication' do
       uid = mock_auth(:facebook, info)
       
       visit  new_user_registration_path
-      click_link 'Sign in with Facebook'
+      click_link 'facebook_sign_in'
 
       user = User.where(uid: uid, provider: :facebook).first
       expect(user.name).to eq(info[:first_name])
@@ -99,7 +99,7 @@ RSpec.feature 'Authentication' do
       user = UserFactory.create_with_omniauth(uid: uid, provider: provider)
 
       visit  new_user_session_path
-      click_link 'Sign in with Facebook'
+      click_link 'facebook_sign_in'
 
       user_count = User.where(uid: uid, provider: provider).count
       expect(user_count).to eq(1)
