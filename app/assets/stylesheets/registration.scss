@@ -1,8 +1,7 @@
 @import "_colors";
 
 body {
-  background-color: $secondary-color;
-  background-image: linear-gradient($secondary-color, #50DEBD);
+  background-color: $secondary-dark-color;
   padding: 2em;
 }
 
@@ -13,12 +12,13 @@ body {
   text-align: center;
   background-color: $white;
   border-radius: 12px;
-  padding: 16px;
 
   input {
     padding: 5px;
     width: 100%;
     max-width: 500px;
+    border: 1px solid $gray;
+    background-color: $white;
   }
 
   .fa {
@@ -27,7 +27,7 @@ body {
   }
 
   input:focus {
-    border: 3px solid $primary-color;
+    border: 1px solid $primary-color;
   }
 
   .social_icons {

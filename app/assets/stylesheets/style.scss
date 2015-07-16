@@ -1,5 +1,16 @@
 @import "_colors";
 
+
+
+/*
+orange: #FB5F1C;
+red: #a82d1c;
+brown: 4f3f35;
+#623621
+
+  background-color: #623621;
+  background-image: linear-gradient(#a82d1c, $secondary-color);
+*/
 html {
     height: 100%;
 }
@@ -9,10 +20,19 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-color: $white;
+  background-color: $background;
   color: $dark-gray;
   font-family: 'Georgia', serif, 'Arial';
   font-size: 16px;
+}
+
+a {
+  color: $secondary-color;
+  text-decoration: none;
+}
+
+a:hover {
+  color: $dark-gray;
 }
 
 @media (min-width: 768px) {
@@ -29,12 +49,30 @@ body {
 
 }
 
+.navbar-inverse .navbar-toggle  {
+  background-color: $primary-color;
+  border-color: $light-gray;
+  color: $dark-gray;
+}
+
 .body-wrapper {
   background-color: $white;
 }
 
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form  {
+  border-color: $secondary-color;
+}
+
 header {
-  background-color: $primary-color;
+  background-color: $secondary-dark-color;
+  a {
+    color: $white;
+  }
+
+  a:hover, a:focus {
+    color: $primary-color;
+    background-color: $white;
+  }
 }
 
 nav {
@@ -45,26 +83,17 @@ nav {
   color: $white;
   padding-right: 15px;
 
-  a {
-    color: $white;
-  }
-
-  a:hover, nav a:focus {
-    color: $dark-gray;
-  }
 }
 
-.nav-main{
-  a:hover, a:focus {
-    color: $primary-color;
-    background-color: $white;
-  }
+.navbar-brand {
+  margin: 0;
+  padding: 7px;
+  font-family: 'Pacifico', cursive;
+  font-size: 2em;
 }
 
 .content {
-  background-color: $white;
-  padding: 1em;
-  padding-bottom: 2em;
+  padding: 1em 2.5em;
 }
 
 .field {
@@ -80,8 +109,12 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
+input, textarea {
+  background-color: $background;
+}
+
 button, .btn, input[type="submit"] {
-  border: 1px solid $mid-gray;
+  border: 1px solid $gray;
   background-color: $light-gray;
   color: $dark-gray;
   margin-top: .5em;
@@ -99,7 +132,7 @@ button, .btn, input[type="submit"] {
 }
 
 .btn_primary, input[type="submit"] {
-  background-color: $secondary-dark-color;
+  background-color: $primary-color;
   border: 1px solid $light-gray;
   color: $white;
 
@@ -110,11 +143,6 @@ button, .btn, input[type="submit"] {
 
 .btn_primary:hover, input[type="submit"]:hover {
   background-color: $dark-gray;
-}
-
-a:hover {
-  text-decoration: none;
-  color: $dark-gray;
 }
 
 .title {
