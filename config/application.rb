@@ -22,5 +22,18 @@ module WebRails
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.assets.initialize_on_precompile = false
+
+    config.action_mailer.perform_deliveries = true
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+    :address   => "smtp.mandrillapp.com",
+    :port      => 587,
+    :enable_starttls_auto => true,
+    :user_name => Rails.application.secrets.mandrill_user,
+    :password  => Rails.application.secrets.mandrill_pw,
+    :authentication => 'login',
+    :domain => 'dinnerassister.com',
+    }
   end
 end
