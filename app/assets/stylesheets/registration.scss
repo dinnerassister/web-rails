@@ -1,0 +1,66 @@
+@import "_colors";
+
+body {
+  background-color: $secondary-color;
+  background-image: linear-gradient($secondary-color, #50DEBD);
+  padding: 2em;
+}
+
+.registration {
+  font-size: 1.3em;
+  display: block;
+  max-width: 550px;
+  text-align: center;
+  background-color: $white;
+  border-radius: 12px;
+  padding: 16px;
+
+  input {
+    padding: 5px;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .fa {
+    font-size: 3.5em;
+    color: $primary-color;
+  }
+
+  input:focus {
+    border: 3px solid $primary-color;
+  }
+
+  .social_icons {
+    letter-spacing: 0.5em;
+    padding-bottom: 1em;
+  }
+
+  .log_in {
+    text-align: left;
+
+    input[type="checkbox"] {
+      width: auto;
+    }
+  }
+
+  #error_explanation {
+    font-size: 16px;
+    text-align: left;
+    padding-left: 1em;
+    padding-bottom: 1em;
+    ul {
+      list-style: square;
+      padding-left: 1em;
+    }
+
+    h2 {
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+  }
+
+
+  input[type="submit"] {
+    background-color: $primary-color;
+  }
+}

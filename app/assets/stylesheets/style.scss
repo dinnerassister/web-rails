@@ -63,6 +63,7 @@ nav {
 
 .content {
   background-color: $white;
+  padding: 1em;
   padding-bottom: 2em;
 }
 
@@ -79,11 +80,12 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-button, .btn {
+button, .btn, input[type="submit"] {
   border: 1px solid $mid-gray;
   background-color: $light-gray;
   color: $dark-gray;
-  margin: .5em;
+  margin-top: .5em;
+  margin-bottom: .5em;
   width: 50%;
   font-size: 1.3em;
 
@@ -96,7 +98,7 @@ button, .btn {
   }
 }
 
-.btn-primary {
+.btn_primary, input[type="submit"] {
   background-color: $secondary-dark-color;
   border: 1px solid $light-gray;
   color: $white;
@@ -106,6 +108,34 @@ button, .btn {
   }
 }
 
-.btn-primary:hover {
+.btn_primary:hover, input[type="submit"]:hover {
   background-color: $dark-gray;
+}
+
+a:hover {
+  text-decoration: none;
+  color: $dark-gray;
+}
+
+.title {
+  font-size: 2.5em;
+  color: $primary-color;
+}
+
+ul {
+  list-style: none;
+}
+
+.profile {
+  input {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid $light-gray;
+  }
+
+  input[type="submit"] {
+    padding: 10px;
+    width: 200px;
+    font-size: 16px;
+  }
 }

@@ -1,3 +1,5 @@
+<h1>Profile</h1>
+<div class="profile">
 <%= form_for(@user, url: user_update_path) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -19,11 +21,12 @@
     <%= f.label :email %><br>
     <%= f.text_field :email %>
   </div>
-  <% if @user.da_authenticated? %>
-    <%= link_to "Change password", edit_user_registration_path %>
-  <% end %>
-  
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field">
+    <input name="commit" value="Update" class="btn_primary" type="submit">
   </div>
 <% end %>
+
+<% if @user.da_authenticated? %>
+    <%= link_to "Change password", edit_user_registration_path %>
+<% end %>
+</div>

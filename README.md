@@ -11,10 +11,10 @@ This is a recipe application to help plan your meals.
 ### Database
 Set up your database.yml file. I am using postgres.
 
-### Omniauth - Optional
-App allows user to create an account with their email. However, you can add omniauth by adding the client key and secret to `config/devise.rb`.
-Example:
-`config.omniauth :google_oauth2, 'key', 'secret'`
+
+### secrets.yml - Optional
+secrets.yml contains api id and key this application use. This is not require to run the app. 
+
 
 ### Mailer - Optional
 I use mailer to send password reset or unlock account. You should set it up in development.rb.
