@@ -19,4 +19,8 @@ Devise.setup do |config|
 
   config.sign_out_via = :delete
 
+  config.omniauth :google_oauth2, Rails.application.secrets.omni_google_id, Rails.application.secrets.omni_google_key
+  config.omniauth :facebook, Rails.application.secrets.omni_facebook_id, Rails.application.secrets.omni_facebook_key
+  config.omniauth :twitter, Rails.application.secrets.omni_twitter_id,Rails.application.secrets.omni_twitter_key
+
 end
