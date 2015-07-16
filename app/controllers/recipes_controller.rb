@@ -2,6 +2,7 @@ require 'recipes/db_preparer'
 
 class RecipesController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+  before_action :set_tags, only: [:show, :edit, :new]
   before_action :authenticate_user!, except: [:show, :index]
 
   def index
@@ -14,8 +15,7 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @recipe.ingredients = Array.new(10, Ingredient.new)
-    @recipe.tags = [Tag.find_by(name: "Meal")]
-    @tag_names = Tag.pluck(:name)
+    @recipe.tags = [Tag.find_by(name: "meal")]
   end
 
   def edit
@@ -64,7 +64,7 @@ class RecipesController < ApplicationController
       if tags
         tags = params[:tags].map {|t| ActionController::Base.helpers.strip_tags(t.downcase)}
         tags = tags.delete_if {|t| t.blank? }
-        tags = tags.uniq.map {|t| Tag.find_or_create_by(name: t.capitalize)}
+        tags = tags.uniq.map {|t| Tag.find_or_create_by(name: t)}
       else
         tags = []
       end
@@ -75,6 +75,9 @@ class RecipesController < ApplicationController
 
     def set_recipe
       @recipe = Recipe.find(params[:id])
+    end
+
+    def set_tags
       @tag_names = Tag.pluck(:name)
     end
 
