@@ -8,7 +8,7 @@ RSpec.describe RecipesController, type: :controller do
     let (:recipe) {Recipe.create(name: "old name", directions: "old directons")}
 
   it "saves existing tag" do
-    tag = Tag.create(name: "Vietnamese")
+    tag = Tag.create(name: "vietnamese")
     post :create, {:recipe => params, :tags => [tag.name]}, valid_session
 
     expect(recipe_values(:tags)).to match_array [tag.name]
@@ -16,23 +16,23 @@ RSpec.describe RecipesController, type: :controller do
   end
 
   it "updates tags" do
-    tag1 = Tag.create(name: "Same name");
-    tag2 = Tag.create(name: "Appetizer");
+    tag1 = Tag.create(name: "same name");
+    tag2 = Tag.create(name: "appetizer");
     recipe.tags = [tag1, tag2]
 
-    put :update, {:id => recipe.to_param, :recipe => params, tags: [tag2.name, "New tag"]}, valid_session
+    put :update, {:id => recipe.to_param, :recipe => params, tags: [tag2.name, "new tag"]}, valid_session
 
-    expect(recipe_values(:tags)).to match_array [tag2.name, "New tag"]
+    expect(recipe_values(:tags)).to match_array [tag2.name, "new tag"]
   end
 
-  it "capitalizes tag" do
-    post :create, {:recipe => params, :tags => ["potato"]}, valid_session
-    expect(recipe_values(:tags)).to match_array ["Potato"]
+  it "downcases tag" do
+    post :create, {:recipe => params, :tags => ["PotAto"]}, valid_session
+    expect(recipe_values(:tags)).to match_array ["potato"]
   end
 
   it "strips html tags" do
     post :create, {:recipe => params, :tags => ["<script>bad</script>Bread"]}, valid_session
-    expect(recipe_values(:tags)).to match_array ["Bread"]
+    expect(recipe_values(:tags)).to match_array ["bread"]
   end
 
   it "does not save empty tag" do
@@ -46,8 +46,8 @@ RSpec.describe RecipesController, type: :controller do
   end 
 
   it "removes tags" do
-    tag1 = Tag.create(name: "Same name");
-    tag2 = Tag.create(name: "Appetizer");
+    tag1 = Tag.create(name: "same name");
+    tag2 = Tag.create(name: "appetizer");
     recipe.tags = [tag1, tag2]
 
     put :update, {:id => recipe.to_param, :recipe => params, tags: []}, valid_session
@@ -56,8 +56,8 @@ RSpec.describe RecipesController, type: :controller do
   end
 
   it "removes all tags when there is no tag submitted" do
-    tag1 = Tag.create(name: "Same name");
-    tag2 = Tag.create(name: "Appetizer");
+    tag1 = Tag.create(name: "same name");
+    tag2 = Tag.create(name: "appetizer");
     recipe.tags = [tag1, tag2]
 
     put :update, {:id => recipe.to_param, :recipe => params}, valid_session
@@ -68,7 +68,7 @@ RSpec.describe RecipesController, type: :controller do
   it "ignores capitalization duplicates" do
     post :create, {:recipe => params, :tags => ["vegi", "Vegi"]}, valid_session
 
-    expect(recipe_values(:tags)).to match_array ["Vegi"]
+    expect(recipe_values(:tags)).to match_array ["vegi"]
   end
   
   def recipe_values(method_name)

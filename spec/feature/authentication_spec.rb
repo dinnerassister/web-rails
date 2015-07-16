@@ -34,7 +34,7 @@ RSpec.feature 'Authentication' do
       uid = mock_auth(:twitter, info)
 
       visit  new_user_registration_path
-      click_link 'Sign in with Twitter'
+      click_link 'twitter_sign_in'
       
       user = User.where(uid: uid, provider: :twitter).first
       expect(user.name).to eq(info[:name])
@@ -46,7 +46,7 @@ RSpec.feature 'Authentication' do
       user = UserFactory.create_with_omniauth(uid: uid, provider: provider)
 
       visit  new_user_session_path
-      click_link 'Sign in with Twitter'
+      click_link 'twitter_sign_in'
       
       user_count = User.where(uid: uid, provider: provider).count
       expect(user_count).to eq(1)
@@ -59,7 +59,7 @@ RSpec.feature 'Authentication' do
       uid = mock_auth(:google_oauth2, info)
 
       visit  new_user_registration_path
-      click_link 'Sign in with Google Oauth2'
+      click_link 'google_sign_in'
 
       user = User.where(uid: uid, provider: :google_oauth2).first
       expect(user.name).to eq(info[:first_name])
@@ -73,7 +73,7 @@ RSpec.feature 'Authentication' do
       user = UserFactory.create_with_omniauth(uid: uid, provider: provider)
 
       visit  new_user_session_path
-      click_link 'Sign in with Google Oauth2'
+      click_link 'google_sign_in'
 
       user_count = User.where(uid: uid, provider: provider).count
       expect(user_count).to eq(1)
