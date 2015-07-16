@@ -1,8 +1,7 @@
 @import "_colors";
 
 .banner {
-  background-color: $secondary-color;
-  background-image: linear-gradient($secondary-color, #50DEBD);
+  background-image: linear-gradient(#F0FFD7, #B2E66F);
   padding: 20px;
 
   img {
@@ -15,19 +14,20 @@
 
   input, select {
     border: 0px;
-    border-bottom: 1px solid $light-gray;
+    border-bottom: 1px solid $gray;
     padding-top: 0.3em;
     width: 100%;
   }
 
   textarea {
-    background: url("line.png");
     border: 0px;
     height: 300px;
     width: 100%;
     min-width: 270px;
     overflow: auto;
     resize: vertical;
+    border: 1px solid $gray;
+    background-color: $white;
   }
 
   label {
