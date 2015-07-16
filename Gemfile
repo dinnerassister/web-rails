@@ -19,6 +19,10 @@ gem 'omniauth-yahoo-oauth2', '~> 1.1.0'
 
 gem "paperclip", "~> 4.2"
 
+group :production do
+  gem 'rails_12factor'
+end
+
 group :development, :test do
   gem 'byebug'
   gem 'spring'
