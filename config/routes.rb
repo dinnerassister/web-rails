@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'static_pages/about'
+
+  get 'static_pages/howto'
+
   resources :recipes
   
   get 'user/edit' => 'users#edit'

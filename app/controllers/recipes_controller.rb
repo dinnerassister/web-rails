@@ -14,6 +14,8 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @recipe.ingredients = Array.new(10, Ingredient.new)
+    @recipe.tags = [Tag.find_by(name: "Meal")]
+    @tag_names = Tag.pluck(:name)
   end
 
   def edit
