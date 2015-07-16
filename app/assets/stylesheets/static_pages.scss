@@ -1,0 +1,53 @@
+@import "_colors";
+
+.howto {
+  text-align: center;
+
+  .circle {
+    font-size: 5em;
+    border: 2px solid;
+    border-radius: 50%;
+    color: $dark-gray;
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    width: 1.5em;
+    height: 1.5em;
+    margin-right: 15px;
+  }
+
+  @media (min-width: 800px) {
+    .instructions {
+      text-align: left;
+    }
+  }
+
+  li {
+    margin-top: 2em;
+  }
+
+  .yellow {
+    color: #F8B140;
+    border-color: #F8B140;
+  }
+
+  .orange {
+    color: #FF5F17;
+    border-color: #FF5F17;
+  }
+
+  .red {
+    color: #B4000B;
+    border-color: #B4000B;
+  }
+
+  .brown {
+    color: #5D1B00;
+    border-color: #5D1B00;
+  }
+
+  h1 {
+    font-size: 4em;
+  }
+}
+
