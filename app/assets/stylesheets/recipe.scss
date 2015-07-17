@@ -35,7 +35,7 @@
     line-height: 1em;
   }
 
-  .ingredient {
+  .ingredients {
     button {
       max-width: 200px;
       margin: 1em;
@@ -47,11 +47,11 @@
       background: $gray;
       display: block;
     }
+  }
 
-    input[type="checkbox"] {
+  .directions input[type="checkbox"], .ingredients input[type="checkbox"] {
       width: auto;
       margin-right: 4px;
-    }
   }
 
   .recipe-label {
