@@ -37,9 +37,9 @@
     <div class="col-sm-4">
       <div class="field">
         <label>Ingredients</label>
-      <ul>
+      <ul class="ingredient">
       <% @recipe.ingredients.each do |ingredient| %>
-        <li><%= ingredient.name %></li>
+        <li><input type="checkbox" class="ingredient_checkbox"><%= ingredient.name %></li>
       <% end %>
       </ul>
       </div>
@@ -60,3 +60,15 @@
     <% end %>
   </div>
 </div>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('.ingredient_checkbox').click(function() {
+      var decorValue = "none";
+      if ($(this).is(":checked")) {
+        decorValue = "line-through"
+      } 
+      $(this).parent().css('text-decoration', decorValue);
+    });
+  });
+
+  </script>

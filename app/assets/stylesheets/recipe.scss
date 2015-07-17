@@ -10,7 +10,7 @@
 }
 
 .recipe {
-  line-height: 1.7em;
+  line-height: 2em;
 
   input, select {
     border: 0px;
@@ -42,6 +42,16 @@
       margin-left: 0;
       font-size: 1em;      
     }
+
+    li:nth-child(even) {
+      background: $gray;
+      display: block;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      margin-right: 4px;
+    }
   }
 
   .recipe-label {
@@ -61,11 +71,6 @@
 
   .row {
     padding-bottom: 1em;
-  }
-
-  h1 {
-    color: $secondary-dark-color;
-    font-size: 5em;
   }
 
   ul {
