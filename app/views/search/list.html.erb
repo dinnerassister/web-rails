@@ -1,0 +1,14 @@
+<div class="content">
+  <ul class="row recipe_list">
+    <% @recipes.each do |recipe| %>
+      <li class="col-md-3">
+        <div>
+          <a href="/recipes/<%= recipe.id %>">
+            <%= image_tag recipe.photo.url(:small) %>
+            <label><%= recipe.name %></label>
+          </a>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

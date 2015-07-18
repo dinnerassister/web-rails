@@ -14,4 +14,8 @@ class Recipe < ActiveRecord::Base
     p = photos.first || RecipePhoto.new
     p.photo
   end
+
+  def self.with_tag(tag)
+    Recipe.find_by_sql ["SELECT recipes.* FROM recipes JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id JOIN tags ON tags.id = recipes_tags.tag_id WHERE tags.name=?", tag]
+  end
 end
