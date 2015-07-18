@@ -108,7 +108,7 @@ button, .btn, input[type="submit"] {
   color: $dark-gray;
   margin-top: .5em;
   margin-bottom: .5em;
-  width: 50%;
+  padding: 10px 50px;
   font-size: 1.3em;
 
   a {
@@ -132,7 +132,14 @@ button, .btn, input[type="submit"] {
 
 .btn_primary:hover, input[type="submit"]:hover {
   background-color: $dark-gray;
+  color: $white;
 }
+
+button:hover, .btn:hover, input[type="submit"]:hover {
+  background-color: $dark-gray;
+  color: $white;
+}
+
 
 .title {
   font-size: 2.5em;
