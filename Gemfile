@@ -17,7 +17,7 @@ gem 'omniauth-twitter', '~> 1.2.0'
 gem 'omniauth-facebook', '~> 2.0.1'
 gem 'omniauth-yahoo-oauth2', '~> 1.1.0'
 
-gem "paperclip", "~> 4.2"
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip"
 
 group :production do
   gem 'rails_12factor'
