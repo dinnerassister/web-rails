@@ -3,14 +3,6 @@ require 'rails_helper'
 RSpec.describe RecipesController, type: :controller do
   include Devise::TestHelpers
 
-  describe "GET #index" do
-    it "assigns all recipes as @recipes" do
-      recipe = Recipe.create! valid_attributes
-      get :index
-      expect(assigns(:recipes)).to eq([recipe])
-    end
-  end
-
   describe "GET #show" do
     it "assigns the requested recipe as @recipe" do
       recipe = Recipe.create! valid_attributes
