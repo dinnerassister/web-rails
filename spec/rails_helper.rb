@@ -42,6 +42,5 @@ RSpec.configure do |config|
 
   config.after(:suite) do
     FileUtils.rm_rf(Dir["#{Rails.root}/spec/test_files/"])
-    load "#{Rails.root}/db/seeds.rb"
   end
 end

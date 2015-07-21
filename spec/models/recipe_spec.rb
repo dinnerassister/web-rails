@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'helpers/recipe_factory'
+require 'helpers/file_helper'
 
 RSpec.describe Recipe do
   context "gets photo" do

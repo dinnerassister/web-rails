@@ -15,18 +15,21 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @recipe.ingredients = Array.new(10, Ingredient.new)
-    @recipe.tags = [Tag.find_by(name: "meal")]
   end
 
   def edit
   end 
 
   def create
-    @recipe = Recipe.new(recipe_params)
+    clean_param = recipe_params
+      tags = clean_param.delete(:tags)
+      add_to_meal_plan = clean_param.delete(:add_to_meal_plan)
+    @recipe = Recipe.new(clean_param)
 
     respond_to do |format|
       if @recipe.save
-        save_tags
+        save_tags(tags)
+        save_to_meal_plan(add_to_meal_plan)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -38,8 +41,12 @@ class RecipesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @recipe.update(recipe_params)
-        save_tags
+      cleaned_params = recipe_params
+      tags = cleaned_params.delete(:tags)
+      add_to_meal_plan = cleaned_params.delete(:add_to_meal_plan)
+      if @recipe.update(cleaned_params)
+        save_tags(tags)
+        save_to_meal_plan(add_to_meal_plan)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipe }
       else
@@ -58,11 +65,18 @@ class RecipesController < ApplicationController
   end
 
   private
-    def save_tags
-      tags = params[:tags]
-      
+    def save_to_meal_plan(value)
+      old_value = MealPlanRecipe.find_by(user_id: current_user.id, recipe_id: @recipe.id)
+      if value == "true" && !old_value
+        MealPlanRecipe.create(user_id: current_user.id, recipe_id: @recipe.id)
+      elsif value == "false" && old_value
+        old_value.delete
+      end
+    end
+
+    def save_tags(tags)
       if tags
-        tags = params[:tags].map {|t| ActionController::Base.helpers.strip_tags(t.downcase)}
+        tags = tags.map {|t| ActionController::Base.helpers.strip_tags(t.downcase)}
         tags = tags.delete_if {|t| t.blank? }
         tags = tags.uniq.map {|t| Tag.find_or_create_by(name: t)}
       else
@@ -83,9 +97,9 @@ class RecipesController < ApplicationController
 
     def recipe_params
       cleaned_params = params.require(:recipe).permit(:name, :directions, :prep_time, :cook_time, 
-                                                      :source_url, :serving, 
+                                                      :source_url, :serving, :add_to_meal_plan,
                                                        photos_attributes: photo_params,
-                                                       tags_attributes: [:name, :id],
+                                                       tags: [],
                                                        ingredients_attributes: [:name, :id])
       Recipes::DbPreparer.process(current_user.id, cleaned_params)
     end

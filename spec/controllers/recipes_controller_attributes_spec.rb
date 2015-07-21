@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RecipesController, type: :controller do
   include Devise::TestHelpers
-
+    let (:recipe) {Recipe.create(name: "old name", directions: "old directons")}
     let(:attributes) {{ "name"=>"tofu", 
                         "directions"=>"buy from store \n cook at home", 
                         "prep_time"=>"3", 
@@ -25,8 +25,6 @@ RSpec.describe RecipesController, type: :controller do
     end
 
     context "update" do
-      let (:recipe) {Recipe.create(name: "old name", directions: "old directons")}
-      
       it "updates name" do
         new_attributes = attributes.merge(name: "Ice cream")
         put :update, {:id => recipe.to_param, :recipe => new_attributes}, valid_session
@@ -77,9 +75,49 @@ RSpec.describe RecipesController, type: :controller do
     end
   end
 
-  describe "array attributes" do
-    let (:recipe) {Recipe.create(name: "old name", directions: "old directons")}
+  describe "add to meal plan" do
+    it "when creating recipe and add to meal plan is checked" do
+      post :create, {:recipe => attributes.merge(add_to_meal_plan: "true")}, valid_session
+      recipe = assigns(:recipe)
+      expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
+    end
 
+    it "when creating recipe and add to meal plan is NOT checked" do
+      post :create, {:recipe => attributes.merge(add_to_meal_plan: "false")}, valid_session
+      recipe = assigns(:recipe)
+      expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
+    end
+
+    context "when recipe exists meal plan exist" do
+      before(:each) do
+        MealPlanRecipe.create(user_id: user.id, recipe_id: recipe.id)
+      end
+
+      it "does not add another record when add to meal plan is checked" do
+        put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "true")}, valid_session
+        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
+      end
+
+      it "removes record when meal plan is not checked" do
+        put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "false")}, valid_session
+        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
+      end
+    end
+
+    context "when recipe does not exists in meal plan" do
+      it "adds record when add to meal plan is checked" do
+        put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "true")}, valid_session
+        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
+      end
+
+      it "does not add record when meal plan is not checked" do
+        put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "false")}, valid_session
+        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
+      end
+    end
+  end
+
+  describe "array attributes" do
     describe "ingredients" do
       it "does not save empty ingredients" do
         ingredients = {"0"=>{"name"=>"soy"}, 
@@ -124,8 +162,9 @@ RSpec.describe RecipesController, type: :controller do
 
   before(:each) do
     Rails.application.env_config["devise.mapping"] = Devise.mappings[:user]
-    sign_in UserFactory.create
+    sign_in user
   end
+  let(:user) {UserFactory.create}
 
   let(:valid_session) { {} }
 end

@@ -85,6 +85,11 @@
       <input id="recipe_tags_input" class="typeahead" type="text" placeholder="Add tags" autocomplete="off">
     </div>
 
+    <div class="field checkbox">
+      <input name="recipe[add_to_meal_plan]" value="false" type="hidden">
+      <input value="true" name="recipe[add_to_meal_plan]" id="recipe_add_to_meal_plan" type="checkbox" checked>Add to meal planner
+    </div>
+
     <div class="row">
       <div class="col-sm-6">
         <button type="button" class="btn" onclick="window.history.go(-1); return false;" >Cancel</button>

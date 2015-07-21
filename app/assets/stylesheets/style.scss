@@ -185,3 +185,14 @@ h1 {
 .google {
   color: #dd4b39;
 }
+
+.radio input[type="radio"], 
+.radio-inline input[type="radio"], 
+.checkbox input[type="checkbox"], 
+.checkbox-inline input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  margin: 0;
+  margin-right: 10px;
+  position: relative;
+}
