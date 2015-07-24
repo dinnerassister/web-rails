@@ -21,7 +21,7 @@ RSpec.describe Recipe do
   end
 
   context "find recipe with tag" do
-    let(:tag) {Tag.create(name: "Pineapple")}
+    let(:tag) {Tag.find_or_create_by(name: "Pineapple")}
 
     it "returns the recipe with the given tag" do
       recipe = RecipeFactory.create(tags: [tag])

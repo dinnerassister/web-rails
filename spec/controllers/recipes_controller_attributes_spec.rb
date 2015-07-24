@@ -79,40 +79,42 @@ RSpec.describe RecipesController, type: :controller do
     it "when creating recipe and add to meal plan is checked" do
       post :create, {:recipe => attributes.merge(add_to_meal_plan: "true")}, valid_session
       recipe = assigns(:recipe)
-      expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
+      expect(MealRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
     end
 
     it "when creating recipe and add to meal plan is NOT checked" do
       post :create, {:recipe => attributes.merge(add_to_meal_plan: "false")}, valid_session
       recipe = assigns(:recipe)
-      expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
+      expect(MealRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
     end
 
     context "when recipe exists meal plan exist" do
       before(:each) do
-        MealPlanRecipe.create(user_id: user.id, recipe_id: recipe.id)
+        MealRecipe.create(user_id: user.id, recipe_id: recipe.id)
       end
 
       it "does not add another record when add to meal plan is checked" do
         put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "true")}, valid_session
-        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
+        expect(MealRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
       end
 
-      it "removes record when meal plan is not checked" do
+      it "marked meal as deleted record when meal plan is not checked" do
         put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "false")}, valid_session
-        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
+        filter = {recipe_id: recipe.id, user_id: user.id}
+        expect(MealRecipe.where(filter).count).to eq 1
+        expect(MealRecipe.find_by(filter).active).to be false
       end
     end
 
     context "when recipe does not exists in meal plan" do
       it "adds record when add to meal plan is checked" do
         put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "true")}, valid_session
-        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
+        expect(MealRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 1
       end
 
       it "does not add record when meal plan is not checked" do
         put :update, {:id => recipe.to_param, :recipe => attributes.merge(add_to_meal_plan: "false")}, valid_session
-        expect(MealPlanRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
+        expect(MealRecipe.where(recipe_id: recipe.id, user_id: user.id).count).to eq 0
       end
     end
   end

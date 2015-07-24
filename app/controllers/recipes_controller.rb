@@ -6,7 +6,6 @@ class RecipesController < ApplicationController
   before_action :authenticate_user!, except: [:show, :index]
 
   def index
-    @recipes = Recipe.all
   end
 
   def show
@@ -66,11 +65,10 @@ class RecipesController < ApplicationController
 
   private
     def save_to_meal_plan(value)
-      old_value = MealPlanRecipe.find_by(user_id: current_user.id, recipe_id: @recipe.id)
-      if value == "true" && !old_value
-        MealPlanRecipe.create(user_id: current_user.id, recipe_id: @recipe.id)
-      elsif value == "false" && old_value
-        old_value.delete
+      if value == "true"
+        MealRecipe.add_recipes(current_user.id, [@recipe.id])
+      else
+        MealRecipe.delete_recipes(current_user.id, [@recipe.id])
       end
     end
 

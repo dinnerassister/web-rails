@@ -23,15 +23,17 @@ ActiveRecord::Schema.define(version: 20150720222207) do
 
   add_index "ingredients", ["recipe_id"], name: "index_ingredients_on_recipe_id", using: :btree
 
-  create_table "meal_plan_recipes", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "recipe_id"
+  create_table "meal_recipes", force: :cascade do |t|
+    t.integer  "user_id",                   null: false
+    t.integer  "recipe_id",                 null: false
     t.datetime "last_used"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "active",     default: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "meal_plan_recipes", ["user_id"], name: "index_meal_plan_recipes_on_user_id", using: :btree
+  add_index "meal_recipes", ["recipe_id"], name: "index_meal_recipes_on_recipe_id", using: :btree
+  add_index "meal_recipes", ["user_id"], name: "index_meal_recipes_on_user_id", using: :btree
 
   create_table "recipe_photos", force: :cascade do |t|
     t.integer  "recipe_id"

@@ -1,14 +1,26 @@
-<div class="content">
-  <ul class="row recipe_list">
+<div class="recipe_list">
+  <input type="checkbox" id="add_all_to_meal_plan"><i class="fa fa-calendar selected"></i> Add all to meal plan
+  <ul class="row">
     <% @recipes.each do |recipe| %>
       <li class="col-md-3">
         <div>
           <a href="/recipes/<%= recipe.id %>">
+            <input name="recipe[id][]" value="<%= recipe.id %>" type="hidden">
             <%= image_tag recipe.photo.url(:small) %>
-            <label><%= recipe.name %></label>
+            <i class="fa fa-calendar icon add_to_meal <%= selected?(recipe.id) %>" data-recipe-id="<%= recipe.id %>"></i>
+            <label><%= shorten(recipe.name) %></label>
           </a>
         </div>
       </li>
     <% end %>
   </ul>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var elements = {'add_all_recipes': '#add_all_to_meal_plan',
+                    'add_to_meal_list': '.recipe_list .add_to_meal'};
+
+    bindUserRecipeListEvents(elements);
+  });
+</script>

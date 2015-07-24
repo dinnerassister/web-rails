@@ -1,0 +1,38 @@
+@import "_colors";
+
+.recipe_list {
+  .icon {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    color: $gray;
+  }
+
+  .selected {
+    color: $dark-gray;
+  }
+  .row {
+    li {
+      padding: 15px;
+    }
+
+    label {
+      font-weight: normal;
+      padding-top: 7px;
+      padding-bottom: 0;
+      margin-bottom: 0;
+      width: 100%;
+    }
+
+    div {
+      box-shadow: 0px 1px 3px $gray;
+      border-radius: 5px;
+      background-color: #FFF;
+      padding: 10px;
+      min-height: 305px;
+      img {
+        min-height: 200px;
+      }
+    }    
+  }
+}
