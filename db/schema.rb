@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720222207) do
+ActiveRecord::Schema.define(version: 20150725024406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,10 +30,31 @@ ActiveRecord::Schema.define(version: 20150720222207) do
     t.boolean  "active",     default: true
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+    t.string   "meal_id"
   end
 
   add_index "meal_recipes", ["recipe_id"], name: "index_meal_recipes_on_recipe_id", using: :btree
   add_index "meal_recipes", ["user_id"], name: "index_meal_recipes_on_user_id", using: :btree
+
+  create_table "plan_meals", force: :cascade do |t|
+    t.integer  "plan_id",    null: false
+    t.integer  "meal_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "plan_meals", ["meal_id"], name: "index_plan_meals_on_meal_id", using: :btree
+  add_index "plan_meals", ["plan_id"], name: "index_plan_meals_on_plan_id", using: :btree
+
+  create_table "plans", force: :cascade do |t|
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "plans", ["user_id"], name: "index_plans_on_user_id", using: :btree
 
   create_table "recipe_photos", force: :cascade do |t|
     t.integer  "recipe_id"

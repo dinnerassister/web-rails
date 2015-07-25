@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :plans
   root 'recipes#index'
 
   get 'recipes/tags/:name' => 'search#tags'

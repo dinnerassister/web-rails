@@ -66,7 +66,7 @@ class RecipesController < ApplicationController
   private
     def save_to_meal_plan(value)
       if value == "true"
-        MealRecipe.add_recipes(current_user.id, [@recipe.id])
+        MealRecipe.add_recipe(current_user.id, @recipe.id)
       else
         MealRecipe.delete_recipes(current_user.id, [@recipe.id])
       end

@@ -27,8 +27,9 @@
             <li><a href="/">Browse recipes</a></li>
             <li><a href="/recipes/new">Add recipe</a></li>
             <li><a href="/user/recipes">My recipes</a></li>
+            <li><a href="/meal_plans/new">Create meal plan</a></li>
           </ul>
-          <ul class="nav navbar-nav nav-profile">
+          <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
               <li><a href="/user/edit">Hi <%= current_user.name %>!</a></li>
               <li><a href="/users/sign_out"  rel="nofollow" data-method="delete" >Log out</a></li>

@@ -1,0 +1,18 @@
+.meal_plan {
+  .week {
+    div {
+      display: inline-block;
+    }
+  }
+
+  .meal_day {
+    width: 13%;
+    div {
+      display: block;
+    }
+  }
+
+  @media (max-width: 700px) {
+
+  }
+}

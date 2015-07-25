@@ -14,7 +14,7 @@ class MealRecipesController < ApplicationController
   def add_recipe
     recipe_id = recipe_id_params
     if integer?(recipe_id) && Recipe.exists?(recipe_id)
-      MealRecipe.add_recipes(current_user.id, [recipe_id])
+      MealRecipe.add_recipe(current_user.id, recipe_id)
       render plain: "Saved!"
     else
       render plain: "Recipe id doesn't exist."

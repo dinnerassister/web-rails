@@ -1,4 +1,9 @@
 class MealRecipe < ActiveRecord::Base
+  before_create :add_meal_id
+
+  def self.add_recipe(user_id, recipe_id)
+    add_recipes(user_id, [recipe_id])
+  end
 
   def self.add_recipes(user_id, recipe_ids)
     MealRecipe.transaction do
@@ -9,7 +14,16 @@ class MealRecipe < ActiveRecord::Base
     end
   end
 
+  def self.delete_recipe(user_id, recipe_id)
+    delete_recipes(user_id, [recipe_id])
+  end
+
   def self.delete_recipes(user_id, recipe_ids)
     MealRecipe.where("user_id = ? AND recipe_id IN (?)", user_id, recipe_ids).update_all(active: false)
+  end
+
+  private
+  def add_meal_id
+    self.meal_id = SecureRandom.uuid unless self.meal_id
   end
 end
