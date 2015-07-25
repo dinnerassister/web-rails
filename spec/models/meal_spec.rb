@@ -1,16 +1,25 @@
 require 'rails_helper'
+require 'helpers/meal_factory'
 
 RSpec.describe Meal do
   it "gets all the recipes in the meal" do
     meal = Meal.new(SecureRandom.uuid)
-    recipes = create_meal(3, meal.id)
+    recipes = MealFactory.create_recipes_for(meal.id, 3)
     expect(meal.recipes).to match_array(recipes)
   end
 
-  def create_meal(size, meal_id)
-    (0...size).map do |x|
-      recipe = RecipeFactory.create(name: x.to_s)
-      MealRecipe.create(user_id: 13, recipe_id: recipe.id, meal_id: meal_id)
-    end
+  it "only retrieves recipes with the specify meal id" do
+    meal = Meal.new(SecureRandom.uuid)
+    recipe1 = MealFactory.create_recipes_for(meal.id, 1)
+    recipe2 = MealFactory.create_recipes_for(SecureRandom.uuid, 1)
+
+    expect(meal.recipes).to match_array(recipe1)
+  end
+
+  it "has a photo" do
+    meal = Meal.new(SecureRandom.uuid)
+    recipes = MealFactory.create_recipes_for(meal.id, 2)
+
+    expect(meal.photo).to_not be_nil
   end
 end

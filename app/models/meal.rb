@@ -7,8 +7,10 @@ class Meal
   end
 
   def recipes
-    []
+    @recipes ||= Recipe.with_meal_id(id)
   end
 
-
+  def photo
+    recipes.first.photo
+  end
 end

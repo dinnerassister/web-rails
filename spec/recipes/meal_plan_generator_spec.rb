@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'recipes/meal_plan_generator'
+require 'helpers/meal_factory'
 
 RSpec.describe MealPlanGenerator do
   let(:generator) { MealPlanGenerator }
@@ -7,17 +8,10 @@ RSpec.describe MealPlanGenerator do
   let(:start_date) {Date.new}
   let(:end_date) {start_date + 3.days}
 
-  xit "create a meal plan for the user" do
-    meals = create_meal(3)
+  it "create a meal plan for the user" do
+    meals = MealFactory.create_meals_for(user_id, 3)
     plan = generator.create(user_id, start_date, end_date)
-    expect(plan.meals).to eq []
-  end
-
-  def create_meal(size)
-    (0...size).map do |x|
-      recipe = RecipeFactory.create(name: x.to_s)
-      MealRecipe.create(user_id: user_id, recipe_id: recipe.id)
-    end
+    expect(plan.meals).to match_array(meals)
   end
 end
 

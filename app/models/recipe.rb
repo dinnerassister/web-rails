@@ -18,4 +18,9 @@ class Recipe < ActiveRecord::Base
   def self.with_tag(tag)
     Recipe.find_by_sql ["SELECT recipes.* FROM recipes JOIN recipes_tags ON recipes_tags.recipe_id = recipes.id JOIN tags ON tags.id = recipes_tags.tag_id WHERE tags.name=?", tag]
   end
+
+  def self.with_meal_id(meal_id)
+    Recipe.find_by_sql ["SELECT recipes.* FROM recipes JOIN meal_recipes ON meal_recipes.recipe_id = recipes.id WHERE meal_recipes.meal_id = ?", meal_id]
+  end
+
 end
