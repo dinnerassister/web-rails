@@ -22,6 +22,14 @@ class MealRecipe < ActiveRecord::Base
     MealRecipe.where("user_id = ? AND recipe_id IN (?)", user_id, recipe_ids).update_all(active: false)
   end
 
+  def self.recipe_ids_for(user_id)
+    MealRecipe.where(user_id: user_id).pluck(:recipe_id).uniq
+  end
+
+  def self.update_meal(meal_id, attritubes)
+    MealRecipe.where(meal_id: meal_id).update_all(attritubes)
+  end
+
   private
   def add_meal_id
     self.meal_id = SecureRandom.uuid unless self.meal_id

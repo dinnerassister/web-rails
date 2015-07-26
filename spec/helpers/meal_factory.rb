@@ -12,7 +12,7 @@ class MealFactory
   def self.create_recipes_for(meal_id, size, user_id = SecureRandom.uuid)
     (0...size).map do |x|
       recipe = RecipeFactory.create(name: x.to_s)
-      MealRecipe.create(user_id: 13, recipe_id: recipe.id, meal_id: meal_id)
+      MealRecipe.create(user_id: user_id, recipe_id: recipe.id, meal_id: meal_id)
       recipe
     end
   end

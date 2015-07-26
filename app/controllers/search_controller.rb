@@ -10,8 +10,8 @@ class SearchController < ApplicationController
   end
 
   def user
-    @recipes = Recipe.where(user_id: current_user.id).order('created_at DESC')
-    @recipes_in_meal_plan = MealRecipe.where(user_id: current_user.id).pluck(:recipe_id).uniq
+    @recipes = Recipe.for(current_user.id)
+    @recipes_in_meal_plan = MealRecipe.recipe_ids_for(current_user.id)
     render 'list'
   end
 end

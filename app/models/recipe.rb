@@ -23,4 +23,7 @@ class Recipe < ActiveRecord::Base
     Recipe.find_by_sql ["SELECT recipes.* FROM recipes JOIN meal_recipes ON meal_recipes.recipe_id = recipes.id WHERE meal_recipes.meal_id = ?", meal_id]
   end
 
+  def self.for(user_id)
+    Recipe.where(user_id: user_id).order('created_at DESC')
+  end
 end
