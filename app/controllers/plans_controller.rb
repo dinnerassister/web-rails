@@ -1,5 +1,6 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @plans = Plan.all
@@ -11,6 +12,7 @@ class PlansController < ApplicationController
   # GET /plans/new
   def new
     @plan = Plan.new
+    @recipes = Recipe.for(current_user.id)
   end
 
   # GET /plans/1/edit

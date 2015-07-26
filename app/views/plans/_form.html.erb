@@ -11,16 +11,19 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :start_date %><br>
-    <input class="datepicker" placeholder="Start date" value="<%= @plan.start_date %>" id="start_date" type="text">
-  </div>
-  <div class="field">
-    <%= f.label :end_date %><br>
-    <input class="datepicker" placeholder="End date" value="<%= @plan.end_date %>" id="end_date" type="text">
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="date">
+    <div class="field form-group">
+      <%= f.label :start_date %><br>
+      <input class="datepicker" placeholder="Start date" value="<%= @plan.start_date %>" id="start_date" type="text">
+    </div>
+    <div class="field form-group">
+      <%= f.label :end_date %><br>
+      <input class="datepicker" placeholder="End date" value="<%= @plan.end_date %>" id="end_date" type="text">
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
   </div>
 <% end %>
 <script type="text/javascript">
@@ -30,7 +33,8 @@
 
   </script>
 
-<div class="week row">
+<div class="row">
+  <div class="week col-sm-2">
   <div class="meal_day">
     <label>Sunday</label>
     <div class="meal">
@@ -73,5 +77,32 @@
       <img src="">
     </div>
   </div>
+</div>
+
+<div class="search recipe_list col-sm-10">
+  <ul class="row">
+    <% @recipes.each do |recipe| %>
+      <li class="col-sm-3">
+        <div>
+          <a href="/recipes/<%= recipe.id %>">
+            <input name="recipe[id][]" value="<%= recipe.id %>" type="hidden">
+            <%= image_tag recipe.photo.url(:small) %>
+            <label><%= shorten(recipe.name) %></label>
+          </a>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    var elements = {'add_all_recipes': '#add_all_to_meal_plan',
+                    'add_to_meal_list': '.recipe_list .add_to_meal'};
+
+    bindUserRecipeListEvents(elements);
+  });
+</script>
+
 </div>
 </div>

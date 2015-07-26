@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  before_action :authenticate_user!, :user
 
   def tags
     @recipes = Recipe.with_tag(params[:name])
