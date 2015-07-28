@@ -24,20 +24,6 @@ a:hover {
   color: $dark-gray;
 }
 
-@media (min-width: 768px) {
-  .nav-profile {
-    float: right;
-  }
-
-  .nav-profile li {
-    list-style: none;
-    display: inline;
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-
-}
-
 .navbar-inverse .navbar-toggle  {
   background-color: $primary-color;
   border-color: $light-gray;
@@ -82,11 +68,11 @@ nav {
 }
 
 .content {
-  padding: 1em 2.5em;
+  padding: 16px 5px;
 }
 
 .field {
-  padding-bottom: 1em;
+  padding-bottom: 16px;
 }
 
 input[type='number'] {
@@ -106,14 +92,15 @@ input {
   border: 0;
   border-radius: 0;
   border-bottom: 1px solid $gray;
+  padding-top: 16px;
 }
 
 button, .btn, input[type="submit"] {
   border: 1px solid $gray;
   background-color: $light-gray;
   color: $dark-gray;
-  margin-top: .5em;
-  margin-bottom: .5em;
+  margin-top: 8px;
+  margin-bottom: 9px;
   padding: 10px 50px;
   font-size: 1.3em;
 

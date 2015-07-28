@@ -10,12 +10,11 @@
 }
 
 .recipe {
-  line-height: 2em;
+  line-height: 16px;
 
   input, select {
     border: 0px;
     border-bottom: 1px solid $gray;
-    padding-top: 0.3em;
     width: 100%;
   }
 
@@ -32,15 +31,15 @@
 
   label {
     padding: 0px;
-    line-height: 1em;
+    line-height: 16px;
   }
 
   .ingredients {
     button {
       max-width: 200px;
-      margin: 1em;
+      margin: 16px;
       margin-left: 0;
-      font-size: 1em;      
+      font-size: 1em;
     }
 
     li {
@@ -60,7 +59,7 @@
   .recipe-label {
     font-size: 1.2em;
     font-weight: bold;
-    padding-bottom: .5em;
+    padding-bottom: 8px;
   }
 
   .recipe-value {
@@ -73,15 +72,15 @@
   }
 
   .row {
-    padding-bottom: 1em;
+    padding-bottom: 16px;
   }
 
   ul {
-    padding-left: 1em;
+    padding-left: 16px;
   }
 
   .form-photo {
-    padding: 1em;
+    padding: 1px;
     text-align: center;
     input {
       border: 0px;
@@ -90,8 +89,8 @@
 
     .icon {
       position: absolute;
-      right: 1em;
-      top: .5em;
+      right: 16px;
+      top: 8px;
       color: $light-gray;
       opacity: 0.8;
     }
@@ -119,7 +118,7 @@
 
     li {
       display: inline-block;
-      margin: 1em;
+      margin: 16px;
       background-color: $white;
       border-radius: 6px;
       margin: 5px;
@@ -130,9 +129,7 @@
         background-color: $light-gray;
       }
     }
-
-    
-  }  
+  }
 }
 
 .tag_list, .recipe_list {

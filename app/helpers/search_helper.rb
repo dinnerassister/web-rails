@@ -2,7 +2,7 @@ module SearchHelper
   def shorten(value)
     trailing = ""
     trailing = "..." if value.length > 40
-    value[0, 40] + trailing
+    value[0, 37] + trailing
   end
 
   def selected?(recipe_id)

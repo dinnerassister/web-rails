@@ -2,7 +2,7 @@
   <input type="checkbox" id="add_all_to_meal_plan"><i class="fa fa-calendar selected"></i> Add all to meal plan
   <ul class="row">
     <% @recipes.each do |recipe| %>
-      <li class="col-md-3">
+      <li class="col-sm-3">
         <div>
           <a href="/recipes/<%= recipe.id %>">
             <input name="recipe[id][]" value="<%= recipe.id %>" type="hidden">
