@@ -16,9 +16,6 @@ class IngredientsController < ApplicationController
     end     
   end
 
-  def delete
-  end
-
   private
   def get_product
     @ingredient = Ingredient.find(params[:id])    
