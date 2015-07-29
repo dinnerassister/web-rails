@@ -1,0 +1,33 @@
+<% if notice %>
+  <p class = "alert alert-success"><%= notice %></p>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>ITEM</th>
+      <th>Q'TY</th>
+      <th>UNIT</th>
+      <th>DESCRIPTION</th>
+      <th>RECIPE_ID</th>
+      <th>ORIGINAL_INPUT</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @ingredients.each do |ingredient| %>
+    <tr>
+      <th scope="row">1</th>
+      <td><%= text_field_tag "item", ingredient.item, class: "form-control" %></td>
+      <td><%= number_field_tag "quantity", ingredient.quantity, class: "form-control" %></td>
+      <td><%= text_field_tag "unit", ingredient.unit, class: "form-control" %></td>
+      <td><%= text_field_tag "description", ingredient.description, class: "form-control" %></td>
+      <td><%= text_field_tag "recipe_id", ingredient.recipe_id, class: "form-control", disabled: true %></td>
+      <td><%= text_field_tag "name", ingredient.name, class: "form-control", disabled: true %></td>
+      <td><%= submit_tag nil, class: "btn-ingredient" %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

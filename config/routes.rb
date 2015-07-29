@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   
   devise_for :users, :controllers => { :omniauth_callbacks => "user_callbacks" }
 
+  resources :ingredients
+
   get 'user/edit' => 'users#edit'
   patch 'user/update' => 'users#update'
   get 'user' => 'users#show', as: :user

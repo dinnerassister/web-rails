@@ -27,6 +27,7 @@
             <li><a href="/">Browse recipes</a></li>
             <li><a href="/recipes/new">Add recipe</a></li>
             <li><a href="/recipes/all">All recipes</a></li>
+            <li><%=link_to "My ingredients", ingredients_path %></li>
           </ul>
           <ul class="nav navbar-nav nav-profile">
             <% if user_signed_in? %>
