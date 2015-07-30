@@ -15,9 +15,6 @@ class RecipesController < ApplicationController
   def new
     @recipe = Recipe.new
     @recipe.ingredients = Array.new(10, Ingredient.new)
-    puts "-------------------------"
-    puts @recipe.ingredients[0].id
-    puts "-------------------------"
     @recipe.tags = [Tag.find_by(name: "meal")]
   end
 

@@ -1,4 +1,5 @@
 class IngredientsController < ApplicationController
+  before_action :get_ingredient, only: [:edit, :update]
   before_action :authenticate_user!
 
   def index
@@ -17,7 +18,7 @@ class IngredientsController < ApplicationController
   end
 
   private
-  def get_product
+  def get_ingredient
     @ingredient = Ingredient.find(params[:id])    
   end
   def ingredient_params
