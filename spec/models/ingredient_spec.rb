@@ -5,6 +5,8 @@ require 'helpers/recipe_factory'
 describe Ingredient do
   context "raise error" do
     it "when create new ingredient with wrong recipe id" do
+      expect{ Recipe.find(1) }.to raise_error
+
       expect { IngredientFactory.create(name: "banana 1 ea", recipe_id: 1) }.to raise_error
     end
   end
