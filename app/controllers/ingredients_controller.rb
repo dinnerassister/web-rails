@@ -21,6 +21,7 @@ class IngredientsController < ApplicationController
   def get_ingredient
     @ingredient = Ingredient.find(params[:id])    
   end
+
   def ingredient_params
     params.require(:ingredient).permit(:item, :quantity, :unit, :description)
   end
