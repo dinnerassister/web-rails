@@ -1,5 +1,4 @@
-<% if notice %>
-  <p class = "alert alert-success"><%= notice %></p>
+<% if flash[:notice] %>
 <% end %>
 
 <table class="table">
@@ -17,15 +16,26 @@
   <tbody>
     <% @ingredients.each do |ingredient| %>
     <tr>
-      <td><%= text_field_tag "recipe_id", ingredient.recipe_id, class: "form-control", disabled: true %></td>
-      <td><%= text_field_tag "name", ingredient.name, class: "form-control", disabled: true %></td>
-      <td><%= text_field_tag "item", ingredient.item, class: "form-control" %></td>
-      <td><%= number_field_tag "quantity", ingredient.quantity, class: "form-control" %></td>
-      <td><%= text_field_tag "unit", ingredient.unit, class: "form-control" %></td>
-      <td><%= text_field_tag "description", ingredient.description, class: "form-control" %></td>
-      <td><%= submit_tag nil, class: "btn-ingredient" %></td>
+      <td><%= text_field_tag :ingredient, ingredient.recipe_id, class: "form-control", disabled: true %></td>
+      <td><%= text_field_tag :name, ingredient.name, class: "form-control", id: ingredient.id %></td>
+      <td><%= text_field_tag :item, ingredient.item, class: "form-control", disabled: true %></td>
+      <td><%= number_field_tag :quantity, ingredient.quantity, class: "form-control", disabled: true %></td>
+      <td><%= text_field_tag :unit, ingredient.unit, class: "form-control", disabled: true %></td>
+      <td><%= text_field_tag :description, ingredient.description, class: "form-control", disabled: true %></td>
+      <td><%= button_tag "UPDATE", class: "update-ingredient-btn", data: { id: ingredient.id } %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
-
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".update-ingredient-btn").click(function(e) {
+      var id = ($(e.target).data("id"));
+      var name = $("#"+id).val();
+      $.ajax({
+        method: "PUT",
+        url: "/ingredients/update?id=" + id + "&name=" + name
+      });
+    });
+  });
+</script>
