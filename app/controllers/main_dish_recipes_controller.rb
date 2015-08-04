@@ -1,20 +1,20 @@
-class MealRecipesController < ApplicationController
+class MainDishRecipesController < ApplicationController
   before_action :authenticate_user!
 
   def add
-    MealRecipe.add_recipes(current_user.id, recipe_ids_params)
+    MainDishRecipe.add_recipes(current_user.id, recipe_ids_params)
     render plain: "Saved!"
   end
 
   def delete
-    MealRecipe.delete_recipes(current_user.id, recipe_ids_params)
+    MainDishRecipe.delete_recipes(current_user.id, recipe_ids_params)
     render plain: "Deleted!"
   end
 
   def add_recipe
     recipe_id = recipe_id_params
     if integer?(recipe_id) && Recipe.exists?(recipe_id)
-      MealRecipe.add_recipe(current_user.id, recipe_id)
+      MainDishRecipe.add_recipe(current_user.id, recipe_id)
       render plain: "Saved!"
     else
       render plain: "Recipe id doesn't exist."
@@ -22,7 +22,7 @@ class MealRecipesController < ApplicationController
   end
 
   def delete_recipe
-    MealRecipe.delete_recipes(current_user.id, [recipe_id_params])
+    MainDishRecipe.delete_recipes(current_user.id, [recipe_id_params])
     render plain: "Deleted!"
   end
 

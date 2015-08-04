@@ -33,6 +33,7 @@
     <!-- Ingredients -->
     <div class="ingredients">
       <strong>Ingredients</strong> (one ingredient per line)
+      <br />ex: 1 tsp salt
       <div id="ingredient_list">
       <%= f.fields_for :ingredients do |ingredient_form|%>
         <%= ingredient_form.text_field :name, autocomplete: "off" %>
@@ -64,7 +65,7 @@
       <%= f.file_field "photos_attributes[#{photo_count + 1}][photo]" %>
       <%= f.file_field "photos_attributes[#{photo_count + 2}][photo]" %>
     </div>
-    
+
     <div class="field">
       <%= f.label :source_url %><br>
       <%= f.text_field :source_url %>
@@ -86,8 +87,8 @@
     </div>
 
     <div class="field checkbox">
-      <input name="recipe[add_to_meal_plan]" value="false" type="hidden">
-      <input value="true" name="recipe[add_to_meal_plan]" id="recipe_add_to_meal_plan" type="checkbox" checked>Add to meal planner
+      <input name="recipe[main_dish]" value="false" type="hidden">
+      <input value="true" name="recipe[main_dish]" id="main_recipe_checkbox" type="checkbox" checked> Main recipe
     </div>
 
     <div class="row">

@@ -11,7 +11,7 @@ RSpec.describe SearchHelper do
 
     it "shorten the word if input is more than 40 chars " do
       value = "There is nothing better than a friend, unless it is a friend with chocolate."
-      expect(shorten(value)).to eq (value[0,40] + "...")
+      expect(shorten(value)).to eq (value[0,37] + "...")
     end
   end
 end

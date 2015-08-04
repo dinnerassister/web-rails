@@ -1,5 +1,5 @@
 <div class="recipe_list">
-  <input type="checkbox" id="add_all_to_meal_plan"><i class="fa fa-calendar selected"></i> Add all to meal plan
+  <span class="glyphicon glyphicon-check icon" aria-hidden="true" id="set_all_as_main_dish"></span> Set all as main dish
   <ul class="row">
     <% @recipes.each do |recipe| %>
       <li class="col-sm-3">
@@ -7,7 +7,8 @@
           <a href="/recipes/<%= recipe.id %>">
             <input name="recipe[id][]" value="<%= recipe.id %>" type="hidden">
             <%= image_tag recipe.photo.url(:small) %>
-            <i class="fa fa-calendar icon add_to_meal <%= selected?(recipe.id) %>" data-recipe-id="<%= recipe.id %>"></i>
+            <span class="glyphicon glyphicon-check icon add_to_meal <%= selected?(recipe.id) %>" aria-hidden="true" 
+            id="set_all_as_main_dish" data-recipe-id="<%= recipe.id %>"></span>
             <label><%= shorten(recipe.name) %></label>
           </a>
         </div>
@@ -18,7 +19,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    var elements = {'add_all_recipes': '#add_all_to_meal_plan',
+    var elements = {'add_all_recipes': '#set_all_as_main_dish',
                     'add_to_meal_list': '.recipe_list .add_to_meal'};
 
     bindUserRecipeListEvents(elements);

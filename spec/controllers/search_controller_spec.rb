@@ -19,8 +19,8 @@ RSpec.describe SearchController, type: :controller do
     end
 
     it "gets the recipe_ids" do
-      r1 = MealRecipe.create(user_id: user.id, recipe_id: 34);
-      r2 = MealRecipe.create(user_id: user.id, recipe_id: 57);
+      r1 = MainDishRecipe.create(user_id: user.id, recipe_id: 34);
+      r2 = MainDishRecipe.create(user_id: user.id, recipe_id: 57);
 
       get :user
 
@@ -28,8 +28,8 @@ RSpec.describe SearchController, type: :controller do
     end
 
     it "gets the recipe_ids for signed in user" do
-      r1 = MealRecipe.create(user_id: user.id, recipe_id: 34);
-      r2 = MealRecipe.create(user_id: user.id + 4, recipe_id: 57);
+      r1 = MainDishRecipe.create(user_id: user.id, recipe_id: 34);
+      r2 = MainDishRecipe.create(user_id: user.id + 4, recipe_id: 57);
 
       get :user
 
@@ -37,8 +37,8 @@ RSpec.describe SearchController, type: :controller do
     end
 
     it "recipe ids are unique" do
-      r1 = MealRecipe.create(user_id: user.id, recipe_id: 57);
-      r2 = MealRecipe.create(user_id: user.id, recipe_id: 57);
+      r1 = MainDishRecipe.create(user_id: user.id, recipe_id: 57);
+      r2 = MainDishRecipe.create(user_id: user.id, recipe_id: 57);
 
       get :user
 

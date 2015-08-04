@@ -22,13 +22,13 @@ class RecipesController < ApplicationController
   def create
     clean_param = recipe_params
       tags = clean_param.delete(:tags)
-      add_to_meal_plan = clean_param.delete(:add_to_meal_plan)
+      main_dish = clean_param.delete(:main_dish)
     @recipe = Recipe.new(clean_param)
 
     respond_to do |format|
       if @recipe.save
         save_tags(tags)
-        save_to_meal_plan(add_to_meal_plan)
+        save_to_meal_plan(main_dish)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully created.' }
         format.json { render :show, status: :created, location: @recipe }
       else
@@ -42,10 +42,10 @@ class RecipesController < ApplicationController
     respond_to do |format|
       cleaned_params = recipe_params
       tags = cleaned_params.delete(:tags)
-      add_to_meal_plan = cleaned_params.delete(:add_to_meal_plan)
+      main_dish = cleaned_params.delete(:main_dish)
       if @recipe.update(cleaned_params)
         save_tags(tags)
-        save_to_meal_plan(add_to_meal_plan)
+        save_to_meal_plan(main_dish)
         format.html { redirect_to @recipe, notice: 'Recipe was successfully updated.' }
         format.json { render :show, status: :ok, location: @recipe }
       else
@@ -66,9 +66,9 @@ class RecipesController < ApplicationController
   private
     def save_to_meal_plan(value)
       if value == "true"
-        MealRecipe.add_recipe(current_user.id, @recipe.id)
+        MainDishRecipe.add_recipe(current_user.id, @recipe.id)
       else
-        MealRecipe.delete_recipes(current_user.id, [@recipe.id])
+        MainDishRecipe.delete_recipe(current_user.id, @recipe.id)
       end
     end
 
@@ -95,7 +95,7 @@ class RecipesController < ApplicationController
 
     def recipe_params
       cleaned_params = params.require(:recipe).permit(:name, :directions, :prep_time, :cook_time, 
-                                                      :source_url, :serving, :add_to_meal_plan,
+                                                      :source_url, :serving, :main_dish,
                                                        photos_attributes: photo_params,
                                                        tags: [],
                                                        ingredients_attributes: [:name, :id])

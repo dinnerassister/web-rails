@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe MealRecipesController, type: :controller do
+RSpec.describe MainDishRecipesController, type: :controller do
   include Devise::TestHelpers
 
   describe "POST #add_recipe" do
@@ -11,14 +11,14 @@ RSpec.describe MealRecipesController, type: :controller do
 
     it "saves the meal plan recipe" do
       post :add_recipe, {:recipe_id => recipe.id}
-      recipe_count = MealRecipe.where(user_id: user.id, recipe_id: recipe.id).count
+      recipe_count = MainDishRecipe.where(user_id: user.id, recipe_id: recipe.id).count
       expect(recipe_count).to eq 1
     end
 
     it "does not save if recipe id is not a number" do
       recipe_id = "aaa"
       post :add_recipe, {:recipe_id => recipe_id}
-      recipe_count = MealRecipe.where(user_id: user.id, recipe_id: recipe_id).count
+      recipe_count = MainDishRecipe.where(user_id: user.id, recipe_id: recipe_id).count
       expect(recipe_count).to eq 0
     end
 
@@ -28,7 +28,7 @@ RSpec.describe MealRecipesController, type: :controller do
 
       post :add_recipe, {:recipe_id => recipe.id}
 
-      recipe_count = MealRecipe.where(user_id: user.id, recipe_id: recipe.id).count
+      recipe_count = MainDishRecipe.where(user_id: user.id, recipe_id: recipe.id).count
       expect(recipe_count).to eq 0
     end
 
@@ -46,7 +46,7 @@ RSpec.describe MealRecipesController, type: :controller do
 
     it "remove recipe from meal plan" do
       meal_plan_recipe = {user_id: user.id, recipe_id: recipe.id}
-      meal = MealRecipe.create(meal_plan_recipe)
+      meal = MainDishRecipe.create(meal_plan_recipe)
 
       post :delete_recipe, {:recipe_id => recipe.id}
 
@@ -64,8 +64,8 @@ RSpec.describe MealRecipesController, type: :controller do
       recipe2 = RecipeFactory.create
       post :add, {:recipe_ids => [recipe.id, recipe2.id]}
 
-      expect(MealRecipe.where({user_id: user.id, recipe_id: recipe.id}).count).to eq 1
-      expect(MealRecipe.where({user_id: user.id, recipe_id: recipe2.id}).count).to eq 1
+      expect(MainDishRecipe.where({user_id: user.id, recipe_id: recipe.id}).count).to eq 1
+      expect(MainDishRecipe.where({user_id: user.id, recipe_id: recipe2.id}).count).to eq 1
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.describe MealRecipesController, type: :controller do
   end
 
   def create_meal(recipe_id)
-    MealRecipe.create(user_id: user.id, recipe_id: recipe_id)
+    MainDishRecipe.create(user_id: user.id, recipe_id: recipe_id)
   end
 
   before(:each) do

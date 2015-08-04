@@ -12,7 +12,7 @@ class SearchController < ApplicationController
 
   def user
     @recipes = Recipe.for(current_user.id)
-    @recipes_in_meal_plan = MealRecipe.recipe_ids_for(current_user.id)
+    @recipes_in_meal_plan = MainDishRecipe.recipe_ids_for(current_user.id)
     render 'list'
   end
 end

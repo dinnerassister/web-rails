@@ -10,15 +10,19 @@ UserRecipeListBinder.prototype.bindAddAllRecipes = function() {
   $(this.add_all_recipes).click(function() {
     var recipe_ids = binder.getRecipeIds();
 
-    if ($(this).is(":checked")) {
-      binder.submit('/meal/recipes', 'POST', {recipe_ids: recipe_ids});
-      $(binder.add_to_meal_list).each(function(index) {
-        $(this).addClass('selected');
-      });
-    } else {
-      binder.submit('/meal/recipes', 'DELETE', {recipe_ids: recipe_ids})
+    if ($(this).hasClass("selected")) {
+      $(this).removeClass("selected");
+
+      binder.submit('/maindish/recipes', 'DELETE', {recipe_ids: recipe_ids})
       $(binder.add_to_meal_list).each(function(index) {
         $(this).removeClass('selected');
+      });
+
+    } else {
+      $(this).addClass("selected");
+      binder.submit('/maindish/recipes', 'POST', {recipe_ids: recipe_ids});
+      $(binder.add_to_meal_list).each(function(index) {
+        $(this).addClass('selected');
       });
     }
   });
@@ -33,10 +37,10 @@ UserRecipeListBinder.prototype.bindIndividualRecipe = function() {
 
       if ($(this).hasClass("selected")) {
         $(this).removeClass('selected');
-        binder.submit('/meal/recipe/' + recipe_id, 'DELETE', {})
+        binder.submit('/maindish/recipe/' + recipe_id, 'DELETE', {})
       } else {
         $(this).addClass('selected');
-        $.post("/meal/recipe/" + recipe_id);
+        $.post("/maindish/recipe/" + recipe_id);
       }
     });
   });
