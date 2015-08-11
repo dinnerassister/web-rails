@@ -1,0 +1,66 @@
+[{"name": "Beef with cauliflower stir fry", 
+   "ingredients_attributes": [
+      {"name": "1 lb beef"},
+      {"name": "2 carrots, sliced"},
+      {"name": "1 lb cauliflower"},
+      {"name": "1 tbsp oil"},
+      {"name": "2 tsp fish sauce"},
+      {"name": "salt and pepper to taste"}
+    ],
+    "directions": "1. Wash and slice beef into thin pieces.\n2. Wash and cut cauliflower into bite size.\n3. Heat oil in pan.\n4. Add carrot, cauliflower, and beef.\n5. Cook til tender.\n6. Add fish sauce, and salt and peper to taste."
+  },
+  {"name": "Vietnamese grilled pork", 
+   "ingredients_attributes": [
+      {"name": "1.5 lb pork butt/shoulder with a little fat"},
+      {"name": "1/4 cup of minced lemongrass"},
+      {"name": "3 tbsp sugar"},
+      {"name": "2 tbsp fish sause"},
+      {"name": "1 tbsp pepper"},
+      {"name": "3 cloves garlic, minced"},
+      {"name": "3 shallots, minced"},
+      {"name": "3 tbsp sesame oil"},
+      {"name": "1 tbsp thick soy sauce"},
+      {"name": "3 tbsp roasted sesame"}
+    ],
+    "directions": "1. Thinly slice pork under 1/4 inches.\n2. Combine all the marinade ingredients in a large mixing bowl and mix well.\n3. Mix in pork.\n4. Allow pork to marinade for at least 2 hours.",
+    "source_url": "http://www.theravenouscouple.com/2009/05/bun-thit-nuong-vietnamese-grilled-pork-with-vermicelli.html"
+  },
+  {"name": "Kimchi tofu soup", 
+   "ingredients_attributes": [
+      {"name": "1 cup of Kimchi cut to bitesize"},
+      {"name": "2 cup of broth"},
+      {"name": "1 tsp soy sauce"},
+      {"name": "1 package of silken tofu, drained"},
+      {"name": "2-3 eggs (optional)"},
+      {"name": "3 green scallions cut"},
+      {"name": "1 tbsp Korean hot pepper paste"}
+    ],
+    "directions": "1. Combine Kimchi, Kimchi juice, pepper paste, soy sauce and broth in a pot.\n2. Cook for 30 mins over high heat.\n3. Add tofu and lower to medium heat for 10 mins.\n4. Add eggs.\n5. Add scallion."
+  },
+  {"name": "Bo luc lac (Shaking beef)",
+   "ingredients_attributes": [
+      {"name": "1.5 lbs beef sirloin cut into cube (thumb size)"},
+      {"name": "2 tbs garlic minced"},
+      {"name": "1.5 tbs sugar"},
+      {"name": "2 tbs oyster sauce"},
+      {"name": "1 tbs fish sauce"},
+      {"name": "1 tbs sesame oil"},
+      {"name": "1 tsp thick soy sauce"},
+      {"name": "2 bunches of watercress, washed"},
+      {"name": "2 tbsp oil"}
+    ],
+    "directions": "1. Combine beef, garlic, oyster sauce, sugar, fish sauce, thick soy sauce and sesame oil in a bowl.\n2. Let it marinate for at least 2 hours.\n3. Wash watercrest and let it drain.\n4. Place watercress on a plate, make sure it's flat so you can add the beef.\n5. Over high heat, add oil to a large pan/wok.\n6. Add beef to pan and let it sit for about 2 mins.\n7. Flip the beef to the opposite side and  let sear for 1-2 mins.\n8. Add beef on top of the water crest."
+  },
+    {"name": "Crawfish linguine", 
+   "ingredients_attributes": [
+      {"name": "1 lb pasta"},
+      {"name": "1 lb crawfish meat"},
+      {"name": "1 stick butter"},
+      {"name": "1 pt half and half"},
+      {"name": "3 stalks scallion"},
+      {"name": "2 tbsp garlic, minced"},
+      {"name": "salt and pepper to taset"}
+    ],
+    "directions": "1. Cook pasta according to direction on package.\n2. Drain pasta when it's done.\n3. Melt about 1 tbsp of butter in a medium pot or large pan.\n4. Saute scallion and garlic until garlic is lightly golden.\n5. Add the rest of butter stick.\n6. Once the butter melts, add crawfish.\n7. Saute crawfish and half and half.\n8. Cook until sauce is bubbly.\n9. Add salt to taste.\n10. Add pasta and toss well."
+  }
+]

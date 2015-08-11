@@ -19,6 +19,11 @@ class MealPlanGenerator
     meal_recipe = meal_recipe.shuffle
     meal_recipe = meal_recipe.cycle
     meal_recipe = meal_recipe.take(plan.size)
-    plan.meals = meal_recipe.map{|m| Meal.new(m.meal_id)}
+    plan.meals = meal_recipe.each_with_index.map do |m, i|
+      date = plan.start_date + i.days
+      meal_id = m.meal_id || SecureRandom.uuid
+      m.update(meal_id: meal_id) unless m.meal_id
+      Meal.new(m.meal_id, date)
+    end
   end
 end

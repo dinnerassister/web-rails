@@ -1,9 +1,10 @@
 class Meal
-  attr_accessor :id
+  attr_accessor :id, :date
   attr_writer :recipes
 
-  def initialize(meal_id = SecureRandom.uuid)
+  def initialize(meal_id, date = Date.today)
     @id = meal_id
+    @date = date
   end
 
   def recipes

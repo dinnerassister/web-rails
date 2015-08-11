@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :plans
-  root 'recipes#index'
+  root 'plans#main'
 
   get 'recipes/tags/:name' => 'search#tags'
   get 'recipes/all' => 'search#all'
@@ -19,7 +18,9 @@ Rails.application.routes.draw do
   post 'maindish/recipes' => 'main_dish_recipes#add'
   delete 'maindish/recipes' => 'main_dish_recipes#delete'
 
+  get 'plans/:id/groceries' => 'plans#groceries'
 
+  resources :plans
 
   get 'static_pages/about'
   get 'static_pages/howto'

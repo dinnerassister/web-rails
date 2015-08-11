@@ -17,6 +17,11 @@ RSpec.describe MealRecipe, type: :model do
     expect(meal.meal_id).to_not be_nil
   end
 
+  it "sets meal id for find or create" do
+    meal = MealRecipe.find_or_create_by(attributes)
+    expect(meal.meal_id).to_not be_nil
+  end
+
   it "meal id remains the same upon update" do
     meal = MealRecipe.create(attributes)
     meal_id = meal.meal_id

@@ -1,0 +1,43 @@
+<h1> Grocery List</h1>
+<ul class="ingredients">
+  <h3>Produce</h3>
+  <li><input class="check_strike" type="checkbox">1 head of broccoli</li>
+  <li><input class="check_strike" type="checkbox">1/4 lb straw or button mushrooms</li>
+  <li><input class="check_strike" type="checkbox">2 large carrot</li>
+  <li><input class="check_strike" type="checkbox">1 thumb size piece of ginger</li>
+  <li><input class="check_strike" type="checkbox">cilantro</li>
+  <li><input class="check_strike" type="checkbox">1/4 lb bamboo shoots</li>
+  <li><input class="check_strike" type="checkbox">1/4 lb cabbage</li>
+  <li><input class="check_strike" type="checkbox">1/4 lb daikon radish</li>
+  <li><input class="check_strike" type="checkbox">1/4 lb green beans</li>
+  <li><input class="check_strike" type="checkbox">3 tablespoon mince lemongrass</li>
+
+  <h3>Can</h3>
+  <li><input class="check_strike" type="checkbox">3 liters of basic vegetarian broth</li>
+
+  <h3>Spices</h3>
+  <li><input class="check_strike" type="checkbox">5 cloves</li>
+  <li><input class="check_strike" type="checkbox">3 star anises</li>
+  <li><input class="check_strike" type="checkbox">2 inches piece of cinnamon</li>
+  <li><input class="check_strike" type="checkbox">1 tsp oil</li>
+  <li><input class="check_strike" type="checkbox">2 tsp soy sauce</li>
+  <li><input class="check_strike" type="checkbox">1 thai chili</li>
+  <li><input class="check_strike" type="checkbox">sugar and salt to taste</li>
+
+  <h3>Misc</h3>
+  <li><input class="check_strike" type="checkbox">fried tofu or gluten</li>
+  <li><input class="check_strike" type="checkbox">pho noodles</li>
+  <li><input class="check_strike" type="checkbox">1/2 lb fried tofu</li>
+</ul>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.check_strike').click(function() {
+    var decorValue = "none";
+    if ($(this).is(":checked")) {
+      decorValue = "line-through"
+    } 
+    $(this).parent().css('text-decoration', decorValue);
+  });
+});
+</script>

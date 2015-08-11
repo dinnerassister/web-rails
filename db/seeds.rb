@@ -12,6 +12,6 @@ Tag.delete_all
     Tag.find_or_create_by(name: name)
  end
 
-require 'json'
-recipes = JSON.parse(File.read("#{Rails.root}/db/pwmf_vegan_recipes.json"))
-recipes.each {|r| Recipe.create(r.merge(user_id: 1))}
+# require 'json'
+# recipes = JSON.parse(File.read("#{Rails.root}/db/pwmf_vegan_recipes.json"))
+# recipes.each {|r| Recipe.create(r.merge(user_id: 1))}

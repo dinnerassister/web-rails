@@ -41,7 +41,16 @@
     }
   }
   .week {
-    width: 520px;
+    .cart {
+      float: right;
+      a {
+        color: $secondary-color;
+      }
+
+      a:hover, a:focus {
+        color: $dark-gray;
+      }
+    }
   }
 
   .meal_day {
@@ -118,4 +127,13 @@
       width: 150px;
       height: 150px;
     }
+}
+
+.today_menu {
+  .today_recipe{
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  }
 }

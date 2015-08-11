@@ -14,81 +14,39 @@
   <div class="date">
     <div class="field form-group">
       <%= f.label :start_date %><br>
-      <input class="datepicker" placeholder="Start date" value="<%= @plan.start_date %>" id="start_date" type="text">
+      <input class="datepicker" placeholder="Start date" value="<%= format_date(@plan.start_date) %>" id="start_date" type="text">
     </div>
     <div class="field form-group">
       <%= f.label :end_date %><br>
-      <input class="datepicker" placeholder="End date" value="<%= @plan.end_date %>" id="end_date" type="text">
+      <input class="datepicker" placeholder="End date" value="<%= format_date(@plan.end_date) %>" id="end_date" type="text">
     </div>
     <div class="actions">
       <%= f.submit %>
     </div>
-
   </div>
 <% end %>
 
 <div class="row">
-  <div class="week col-sm-6">
-  <h2>Menu</h2>
+  <div class="week col-sm-12">
+  <h2>
+  Menu
+  <span class="cart"><a href="/plans/<%= @plan.id %>/groceries"><i class="fa fa-cart-plus"></i> Grocery</a></span>
+  </h2>
   <hr />
+  <% @plan.meals.each do |meal| %>
   <div class="meal_day">
-    <img src="">
-    <label>Sunday</label><span><span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>Edit</span>
+    <img src="<%= meal.photo %>">
+    <label><%= weekday_name(meal.date) %></label><span><span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>Edit</span>
     <hr />
     <ul class="meal_recipe_list">
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted potatoes Roasted potatoesRoasted potatoesRoasted potatoesRoasted potatoesRoasted potatoes</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted carrot</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted yam</a></li>
+      <% meal.recipes.each do |recipe| %>
+      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href=""><%= recipe.name %></a></li>
+      <% end %>
     </ul>
   </div>
-    <div class="meal_day">
-    <img src="">
-    <label>Sunday</label><span><span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>Edit</span>
-    <hr />
-    <ul>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted potatoes</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted carrot</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted yam</a></li>
-    </ul>
-  </div>
-    <div class="meal_day">
-    <img src="">
-    <label>Sunday</label><span><span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>Edit</span>
-    <hr />
-    <ul>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted potatoes</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted carrot</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted yam</a></li>
-    </ul>
-  </div>
-    <div class="meal_day">
-    <img src="">
-    <label>Sunday</label><span><span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>Edit</span>
-    <hr />
-    <ul>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted potatoes</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted carrot</a></li>
-      <li><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span><a href="">Roasted yam</a></li>
-    </ul>
-  </div>
+  <% end %>
 </div>
 
-<div class="meal_search col-sm-6">
-  <input placeholder="Search" id="search_recipe" type="text">
-  <ul class="row">
-    <% @recipes.each do |recipe| %>
-      <li class="col-sm-5 search_item">
-        <a href="/recipes/<%= recipe.id %>">
-          <input name="recipe[id][]" value="<%= recipe.id %>" type="hidden">
-          <%= image_tag recipe.photo.url(:small) %>
-          <label><%= shorten(recipe.name) %></label>
-        </a>
-      </li>
-    <% end %>
-  </ul>
-</div>
-
-</div>
 <script type="text/javascript">
   $(document).ready(function() {
 
@@ -103,5 +61,5 @@
 
   </script>
 
-</div>
+
 </div>

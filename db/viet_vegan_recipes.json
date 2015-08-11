@@ -1,0 +1,24 @@
+[{"name": "Chinese winter melon soup", 
+   "ingredients_attributes": [
+      {"name": "2lb Winter Melon"},
+      {"name": "5 cups broth"},
+      {"name": "1/4 tsp pepper"},
+      {"name": "1 tsp salt"},
+      {"name": "1 scallion"},
+      {"name": "parley"}
+    ],
+    "directions": "1. Peel melon, discard the skin and spongy center.\n2. Cut melon into bite size.\n3. Cut onion and parley to garnish.\n4. Bring broth to boil.\n5. Put melon in.\n6. When melon is cleared, add salt and pepper to taste.\n7. Add parley and green onion.",
+    "serving": 6
+  }, 
+  {"name": "Stir Fried Water Spinach (Rau muong)", 
+   "ingredients_attributes": [
+      {"name": "1 lb of water spinach (rau muong)"},
+      {"name": "2 tbsp vegetable oil"},
+      {"name": "2 garlic cloves, chopped"},
+      {"name": "1 tbsp fish sauce"},
+      {"name": "sugar"},
+      {"name": "salt"}
+    ],
+    "directions": "1. Clean and cut water spinach to bite size.\n2. Heat oil in frying pan over high heat.\n3. Add garlic and stir until garlic is lightly golden.\n4. Add water spinach and stir until it's cooked.\n5. Add fish sauce.\n6. Add salt and sugar to taste."
+  }
+]

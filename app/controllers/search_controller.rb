@@ -3,6 +3,7 @@ class SearchController < ApplicationController
 
   def tags
     @recipes = Recipe.with_tag(params[:name])
+    puts @recipes.inspect
     render 'list'
   end
 

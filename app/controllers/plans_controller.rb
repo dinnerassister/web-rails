@@ -1,6 +1,22 @@
+require 'recipes/meal_plan_generator'
+
 class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:main]
+
+  def main
+    if current_user
+      plan_meal = PlanMeal.find_by(meal_date: Date.today)
+      if plan_meal
+        @meal = Meal.new(plan_meal.meal_id, plan_meal.meal_date)
+        render 'today_meal'
+      else
+        redirect_to '/recipes'
+      end
+    else
+      redirect_to '/recipes'
+    end
+  end
 
   def index
     @plans = Plan.all
@@ -9,10 +25,28 @@ class PlansController < ApplicationController
   def show
   end
 
+  def groceries
+
+  end
+
   # GET /plans/new
   def new
-    @plan = Plan.new
+    start_date = Date.today
+    end_date = start_date + 6.days
+    @plan = MealPlanGenerator.create(current_user.id, start_date, end_date)
+    save_plan(@plan)
     @recipes = Recipe.for(current_user.id)
+  end
+
+  def save_plan(plan)
+    plan.save
+    plan.meals.each_with_index do |meal, index|
+      meal_date = plan.start_date + index.days
+      PlanMeal.find_or_create_by(plan_id: plan.id, meal_id: meal.id, meal_date: meal_date)
+      meal.recipes.each do |recipe|
+        MealRecipe.find_or_create_by(meal_id: meal.id, recipe_id: recipe.id, user_id: current_user.id)
+      end
+    end
   end
 
   # GET /plans/1/edit

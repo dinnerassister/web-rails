@@ -8,6 +8,8 @@ class MainDishRecipe < ActiveRecord::Base
       recipe_ids.each do |id|
         meal = MainDishRecipe.find_or_create_by(user_id: user_id, recipe_id: id)
         meal.update(active: true)
+        meal_recipe = MealRecipe.find_or_create_by(user_id: user_id, recipe_id: id)
+        meal_recipe.update(active: true)
       end
     end
   end

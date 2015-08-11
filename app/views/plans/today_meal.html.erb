@@ -1,0 +1,12 @@
+<div class="today_meal">
+<h1>Today's menu:</h1>
+<hr />
+<% @meal.recipes.each do |recipe| %>
+  <div class="today_recipe">
+    <a href="/recipes/<%= recipe.id %>">
+    <%= image_tag recipe.photo.url(:medium) %>
+    <label><%= recipe.name %></label>
+    </a>
+  </div>
+<% end %>
+</div>
